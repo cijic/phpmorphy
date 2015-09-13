@@ -5,7 +5,7 @@ phpMorphy --- morphological analyzer library for Russisan, English and German la
 
 Source website (in russian): http://phpmorphy.sourceforge.net/  
 SF project: http://sourceforge.net/projects/phpmorphy  
-Wrapper on Github: https://github.com/cijic/phpmorphy  
+Wrapper on Github: https://github.com/cijic/phpmorphy
 
 This library allow retireve follow morph information for any word:
 - Base (normal) form
@@ -27,17 +27,17 @@ echo $morphy->getMorphy()->getPseudoRoot('FIGHTY');
 Morphy::getPseudoRoot('БОЙЦОВЫЙ')
 ```
 
-## Add russian facade supported
+## Add russian facade support
 
 Add to config/app.php:
 
 Section ```providers```
-```
+``` php
 cijic\phpMorphy\MorphyServiceProvider::class,
 ```
 
 Section ```aliases```
-```
+``` php
 'Morphy'    => cijic\phpMorphy\Facade\Morphy::class,
 ```
 
