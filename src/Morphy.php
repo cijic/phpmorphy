@@ -10,13 +10,20 @@ class Morphy
     protected $morphy;
     private $dictionaries = array('ru' => 'ru_RU', 'en' => 'en_EN');
 
-    public function __construct($language)
+    public function __construct($language = 'ru')
     {
         $this->dictsPath = __DIR__ . '/../libs/phpmorphy/dicts';
-        $this->language = $language;
+        $this->language = $this->dictionaries[$language];
+        $options = [];
+
+        if (defined('PHPMORPHY_STORAGE_FILE')) {
+            $options = ['storage' => PHPMORPHY_STORAGE_FILE];
+        } else {
+            $options = ['storage' => 'file'];
+        }
 
         try {
-            $this->morphy = new phpMorphy($this->dictsPath, $this->dictionaries[$this->language], array('storage' => PHPMORPHY_STORAGE_FILE));
+            $this->morphy = new phpMorphy($this->dictsPath, $this->language, $options);
         } catch(phpMorphy_Exception $e) {
             throw new Exception('Error occured while creating phpMorphy instance: ' . PHP_EOL . $e);
         }
