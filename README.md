@@ -57,8 +57,8 @@ $ composer require cijic/phpmorphy
 ## Usage
 
 ``` php
-$morphy = new cijic\PHPMorphy();
-var_dump($morphy);
+$morphy = new cijic\phpMorphy\Morphy('en');
+echo $morphy->getMorphy()->getPseudoRoot('FIGHTY');
 ```
 
 ## Change log

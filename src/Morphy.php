@@ -1,6 +1,6 @@
 <?php
 
-namespace cijic\PHPMorphy;
+namespace cijic\phpMorphy;
 
 use phpMorphy;
 
@@ -12,7 +12,8 @@ class Morphy
 
     public function __construct($language)
     {
-        $this->dictsPath = __DIR__ . '/../../../vendor/phpmorphy/dicts';
+        $this->dictsPath = __DIR__ . '/../vendor/phpmorphy/dicts';
+        $this->language = $language;
 
         try {
             $this->morphy = new phpMorphy($this->dictsPath, $this->dictionaries[$this->language], array('storage' => PHPMORPHY_STORAGE_FILE));

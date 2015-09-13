@@ -16,10 +16,11 @@
     },
     "autoload": {
         "classmap": [
-            "vendor/phpmorphy/src/common.php"
+            "vendor/phpmorphy/src/common.php",
+            "vendor/phpmorphy/src/"
         ],
         "psr-4": {
-            "cijic\\PHPMorphy\\": "src"
+            "cijic\\phpMorphy\\": "src"
         }
     }
 }
