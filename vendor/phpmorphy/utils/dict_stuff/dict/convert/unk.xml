@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gramtab>
+    <part_of_speech>
+        <pos name="UNKNOWN" const_name="PMY_UP_UNKNOWN" id="0"/>
+    </part_of_speech>
+    <grammems>
+        <grammem name="" const_name="PMY_UG_UNKNOWN" id="0" shift="0"/>
+    </grammems>
+</gramtab>

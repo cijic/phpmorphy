@@ -1,0 +1,9 @@
+For proper work you need phpMorphy library and one of dictionaries.
+Download each one from http://sourceforge.net/projects/phpmorphy/
+
+-- INSTALL LIBRARY
+ - untar archive and include ./src/common.php in your script
+
+-- INSTALL DICTIONARY
+ - untar archive with dict to any directory(i suggest ./dicts directory in phpMorphy dir). Use this directory when create
+   dict descriptor(phpMorphy_FilesBundle) in script.

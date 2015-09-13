@@ -1,0 +1,1 @@
+	protected $alphabet_num;

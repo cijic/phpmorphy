@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gramtab>
+    <part_of_speech>
+        <pos name="ART" const_name="PMY_GP_ART" id="0"/>
+        <pos name="ADJ" const_name="PMY_GP_ADJ" id="1"/>
+        <pos name="ADV" const_name="PMY_GP_ADV" id="2"/>
+        <pos name="EIG" const_name="PMY_GP_EIG" id="3"/>
+        <pos name="SUB" const_name="PMY_GP_SUB" id="4"/>
+        <pos name="VER" const_name="PMY_GP_VER" id="5"/>
+        <pos name="PA1" const_name="PMY_GP_P_A1" id="6"/>
+        <pos name="PA2" const_name="PMY_GP_P_A2" id="7"/>
+        <pos name="PRO" const_name="PMY_GP_PRONOMEN" id="8"/>
+        <pos name="PRP" const_name="PMY_GP_PRP" id="9"/>
+        <pos name="KON" const_name="PMY_GP_KON" id="10"/>
+        <pos name="NEG" const_name="PMY_GP_NEG" id="11"/>
+        <pos name="INJ" const_name="PMY_GP_INJ" id="12"/>
+        <pos name="ZAL" const_name="PMY_GP_ZAL" id="13"/>
+        <pos name="ZUS" const_name="PMY_GP_ZUS" id="14"/>
+        <pos name="PROBEG" const_name="PMY_GP_PRO_BEG" id="15"/>
+        <pos name="INF" const_name="PMY_GP_ZU_INFINITIV" id="16"/>
+    </part_of_speech>
+    <grammems>
+        <grammem name="NOA" const_name="PMY_GG_NOA_UNK" id="0" shift="0"/>
+        <grammem name="PRD" const_name="PMY_GG_PREDIK_BENUTZ" id="1" shift="1"/>
+        <grammem name="PRO" const_name="PMY_GG_PRO_UNK" id="2" shift="2"/>
+        <grammem name="TMP" const_name="PMY_GG_TMP_UNK" id="3" shift="3"/>
+        <grammem name="NAC" const_name="PMY_GG_NAC" id="4" shift="4"/>
+        <grammem name="MOU" const_name="PMY_GG_MOU" id="5" shift="5"/>
+        <grammem name="COU" const_name="PMY_GG_COU" id="6" shift="6"/>
+        <grammem name="GEO" const_name="PMY_GG_GEO" id="7" shift="7"/>
+        <grammem name="WAT" const_name="PMY_GG_WASSER" id="8" shift="8"/>
+        <grammem name="GEB" const_name="PMY_GG_GEB" id="9" shift="9"/>
+        <grammem name="STD" const_name="PMY_GG_STD" id="10" shift="10"/>
+        <grammem name="LOK" const_name="PMY_GG_LOK" id="11" shift="11"/>
+        <grammem name="VOR" const_name="PMY_GG_VOR" id="12" shift="12"/>
+        <grammem name="SICH-AKK" const_name="PMY_GG_SICH_ACC" id="13" shift="13"/>
+        <grammem name="SICH-DAT" const_name="PMY_GG_SICH_DAT" id="14" shift="14"/>
+        <grammem name="SFT" const_name="PMY_GG_SCHWACH" id="15" shift="15"/>
+        <grammem name="NON" const_name="PMY_GG_NICHT_SCHWACH" id="16" shift="16"/>
+        <grammem name="MOD" const_name="PMY_GG_MODAL" id="17" shift="17"/>
+        <grammem name="AUX" const_name="PMY_GG_AUXILIAR" id="18" shift="18"/>
+        <grammem name="KJ1" const_name="PMY_GG_KONJ1" id="19" shift="19"/>
+        <grammem name="KJ2" const_name="PMY_GG_KONJ2" id="20" shift="20"/>
+        <grammem name="PA1" const_name="PMY_GG_PARTIZIP1" id="21" shift="21"/>
+        <grammem name="PA2" const_name="PMY_GG_PARTIZIP2" id="22" shift="22"/>
+        <grammem name="EIZ" const_name="PMY_GG_ZU_VERB_FORM" id="23" shift="23"/>
+        <grammem name="IMP" const_name="PMY_GG_IMPERATIV" id="24" shift="24"/>
+        <grammem name="PRT" const_name="PMY_GG_PRAETERITUM" id="25" shift="25"/>
+        <grammem name="PRAE" const_name="PMY_GG_PRASENS" id="26" shift="26"/>
+        <grammem name="GRU" const_name="PMY_GG_GRUNDFORM" id="27" shift="27"/>
+        <grammem name="KOM" const_name="PMY_GG_KOMPARATIV" id="28" shift="28"/>
+        <grammem name="SUP" const_name="PMY_GG_SUPERLATIV" id="29" shift="29"/>
+        <grammem name="PRI" const_name="PMY_GG_PROPORTIONAL_KONJUNKTION" id="30" shift="30"/>
+        <grammem name="INF" const_name="PMY_GG_INFINITIV" id="31" shift="31"/>
+        <grammem name="VGL" const_name="PMY_GG_VERGLEICHS_KONJUNKTION" id="32" shift="32"/>
+        <grammem name="NEB" const_name="PMY_GG_NEBENORDNENDE" id="33" shift="33"/>
+        <grammem name="UNT" const_name="PMY_GG_UNTERORDNENDE" id="34" shift="34"/>
+        <grammem name="PER" const_name="PMY_GG_PERSONAL" id="35" shift="35"/>
+        <grammem name="DEM" const_name="PMY_GG_DEMONSTRATIV" id="36" shift="36"/>
+        <grammem name="INR" const_name="PMY_GG_INTERROGATIV" id="37" shift="37"/>
+        <grammem name="POS" const_name="PMY_GG_POSSESSIV" id="38" shift="38"/>
+        <grammem name="REF" const_name="PMY_GG_REFLEXIV" id="39" shift="39"/>
+        <grammem name="RIN" const_name="PMY_GG_RIN_PRONOMEN" id="40" shift="40"/>
+        <grammem name="ALG" const_name="PMY_GG_ALG_PRONOMEN" id="41" shift="41"/>
+        <grammem name="SOL" const_name="PMY_GG_ADJEKTIVE_OHNE_ARTIKEL" id="42" shift="42"/>
+        <grammem name="IND" const_name="PMY_GG_ADJEKTIVE_MIT_UNBESTIMMTE" id="43" shift="43"/>
+        <grammem name="DEF" const_name="PMY_GG_ADJEKTIVE_MIT_BESTIMMTE" id="44" shift="44"/>
+        <grammem name="1" const_name="PMY_GG_ERSTE_PERSON" id="45" shift="45"/>
+        <grammem name="2" const_name="PMY_GG_ZWEITE_PERSON" id="46" shift="46"/>
+        <grammem name="3" const_name="PMY_GG_DRITTE_PERSON" id="47" shift="47"/>
+        <grammem name="FEM" const_name="PMY_GG_FEMININ" id="48" shift="48"/>
+        <grammem name="MAS" const_name="PMY_GG_MASKULIN" id="49" shift="49"/>
+        <grammem name="NEU" const_name="PMY_GG_NEUTRUM" id="50" shift="50"/>
+        <grammem name="PLU" const_name="PMY_GG_PLURAL" id="51" shift="51"/>
+        <grammem name="SIN" const_name="PMY_GG_SINGULAR" id="52" shift="52"/>
+        <grammem name="NOM" const_name="PMY_GG_NOMINATIV" id="53" shift="53"/>
+        <grammem name="GEN" const_name="PMY_GG_GENITIV" id="54" shift="54"/>
+        <grammem name="DAT" const_name="PMY_GG_DATIV" id="55" shift="55"/>
+        <grammem name="AKK" const_name="PMY_GG_AKKUSATIV" id="56" shift="56"/>
+        <grammem name="ABBR" const_name="PMY_GG_ABBREVIATION" id="57" shift="57"/>
+        <grammem name="EW" const_name="PMY_GG_EINWOHNER" id="58" shift="58"/>
+        <grammem name="TRANS" const_name="PMY_GG_TRANSITIV" id="59" shift="59"/>
+        <grammem name="INTRA" const_name="PMY_GG_INTRANSITIV" id="60" shift="60"/>
+        <grammem name="IMPER" const_name="PMY_GG_IMPERSONAL" id="61" shift="61"/>
+    </grammems>
+</gramtab>

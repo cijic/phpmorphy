@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gramtab>
+    <part_of_speech>
+        <pos name="С" const_name="PMY_RP_NOUN" id="0"/>
+        <pos name="П" const_name="PMY_RP_ADJ_FULL" id="1"/>
+        <pos name="Г" const_name="PMY_RP_VERB" id="2"/>
+        <pos name="МС" const_name="PMY_RP_PRONOUN" id="3"/>
+        <pos name="МС-П" const_name="PMY_RP_PRONOUN_P" id="4"/>
+        <pos name="МС-ПРЕДК" const_name="PMY_RP_PRONOUN_PREDK" id="5"/>
+        <pos name="ЧИСЛ" const_name="PMY_RP_NUMERAL" id="6"/>
+        <pos name="ЧИСЛ-П" const_name="PMY_RP_NUMERAL_P" id="7"/>
+        <pos name="Н" const_name="PMY_RP_ADV" id="8"/>
+        <pos name="ПРЕДК" const_name="PMY_RP_PREDK" id="9"/>
+        <pos name="ПРЕДЛ" const_name="PMY_RP_PREP" id="10"/>
+        <pos name="ПОСЛ" const_name="PMY_RP_POSL" id="11"/>
+        <pos name="СОЮЗ" const_name="PMY_RP_CONJ" id="12"/>
+        <pos name="МЕЖД" const_name="PMY_RP_INTERJ" id="13"/>
+        <pos name="ВВОДН" const_name="PMY_RP_INP" id="14"/>
+        <pos name="ФРАЗ" const_name="PMY_RP_PHRASE" id="15"/>
+        <pos name="ЧАСТ" const_name="PMY_RP_PARTICLE" id="16"/>
+        <pos name="КР_ПРИЛ" const_name="PMY_RP_ADJ_SHORT" id="17"/>
+        <pos name="ПРИЧАСТИЕ" const_name="PMY_RP_PARTICIPLE" id="18"/>
+        <pos name="ДЕЕПРИЧАСТИЕ" const_name="PMY_RP_ADVERB_PARTICIPLE" id="19"/>
+        <pos name="КР_ПРИЧАСТИЕ" const_name="PMY_RP_PARTICIPLE_SHORT" id="20"/>
+        <pos name="ИНФИНИТИВ" const_name="PMY_RP_INFINITIVE" id="21"/>
+    </part_of_speech>
+    <grammems>
+        <grammem name="МН" const_name="PMY_RG_PLURAL" id="0" shift="0"/>
+        <grammem name="ЕД" const_name="PMY_RG_SINGULAR" id="1" shift="1"/>
+        <grammem name="ИМ" const_name="PMY_RG_NOMINATIV" id="2" shift="2"/>
+        <grammem name="РД" const_name="PMY_RG_GENITIV" id="3" shift="3"/>
+        <grammem name="ДТ" const_name="PMY_RG_DATIV" id="4" shift="4"/>
+        <grammem name="ВН" const_name="PMY_RG_ACCUSATIV" id="5" shift="5"/>
+        <grammem name="ТВ" const_name="PMY_RG_INSTRUMENTALIS" id="6" shift="6"/>
+        <grammem name="ПР" const_name="PMY_RG_LOCATIV" id="7" shift="7"/>
+        <grammem name="ЗВ" const_name="PMY_RG_VOCATIV" id="8" shift="8"/>
+        <grammem name="МР" const_name="PMY_RG_MASCULINUM" id="9" shift="9"/>
+        <grammem name="ЖР" const_name="PMY_RG_FEMINUM" id="10" shift="10"/>
+        <grammem name="СР" const_name="PMY_RG_NEUTRUM" id="11" shift="11"/>
+        <grammem name="МР-ЖР" const_name="PMY_RG_MASC_FEM" id="12" shift="12"/>
+        <grammem name="НСТ" const_name="PMY_RG_PRESENT_TENSE" id="13" shift="13"/>
+        <grammem name="БУД" const_name="PMY_RG_FUTURE_TENSE" id="14" shift="14"/>
+        <grammem name="ПРШ" const_name="PMY_RG_PAST_TENSE" id="15" shift="15"/>
+        <grammem name="1Л" const_name="PMY_RG_FIRST_PERSON" id="16" shift="16"/>
+        <grammem name="2Л" const_name="PMY_RG_SECOND_PERSON" id="17" shift="17"/>
+        <grammem name="3Л" const_name="PMY_RG_THIRD_PERSON" id="18" shift="18"/>
+        <grammem name="ПВЛ" const_name="PMY_RG_IMPERATIVE" id="19" shift="19"/>
+        <grammem name="ОД" const_name="PMY_RG_ANIMATIVE" id="20" shift="20"/>
+        <grammem name="НО" const_name="PMY_RG_NON_ANIMATIVE" id="21" shift="21"/>
+        <grammem name="СРАВН" const_name="PMY_RG_COMPARATIVE" id="22" shift="22"/>
+        <grammem name="СВ" const_name="PMY_RG_PERFECTIVE" id="23" shift="23"/>
+        <grammem name="НС" const_name="PMY_RG_NON_PERFECTIVE" id="24" shift="24"/>
+        <grammem name="НП" const_name="PMY_RG_NON_TRANSITIVE" id="25" shift="25"/>
+        <grammem name="ПЕ" const_name="PMY_RG_TRANSITIVE" id="26" shift="26"/>
+        <grammem name="ДСТ" const_name="PMY_RG_ACTIVE_VOICE" id="27" shift="27"/>
+        <grammem name="СТР" const_name="PMY_RG_PASSIVE_VOICE" id="28" shift="28"/>
+        <grammem name="0" const_name="PMY_RG_INDECLINABLE" id="29" shift="29"/>
+        <grammem name="АББР" const_name="PMY_RG_INITIALISM" id="30" shift="30"/>
+        <grammem name="ОТЧ" const_name="PMY_RG_PATRONYMIC" id="31" shift="31"/>
+        <grammem name="ЛОК" const_name="PMY_RG_TOPONYM" id="32" shift="32"/>
+        <grammem name="ОРГ" const_name="PMY_RG_ORGANISATION" id="33" shift="33"/>
+        <grammem name="КАЧ" const_name="PMY_RG_QUALITATIVE" id="34" shift="34"/>
+        <grammem name="ДФСТ" const_name="PMY_RG_DE_FACTO_SING_TANTUM" id="35" shift="35"/>
+        <grammem name="ВОПР" const_name="PMY_RG_INTERROGATIVE" id="36" shift="36"/>
+        <grammem name="УКАЗАТ" const_name="PMY_RG_DEMONSTRATIVE" id="37" shift="37"/>
+        <grammem name="ИМЯ" const_name="PMY_RG_NAME" id="38" shift="38"/>
+        <grammem name="ФАМ" const_name="PMY_RG_SUR_NAME" id="39" shift="39"/>
+        <grammem name="БЕЗЛ" const_name="PMY_RG_IMPERSONAL" id="40" shift="40"/>
+        <grammem name="ЖАРГ" const_name="PMY_RG_SLANG" id="41" shift="41"/>
+        <grammem name="ОПЧ" const_name="PMY_RG_MISPRINT" id="42" shift="42"/>
+        <grammem name="РАЗГ" const_name="PMY_RG_COLLOQUIAL" id="43" shift="43"/>
+        <grammem name="ПРИТЯЖ" const_name="PMY_RG_POSSESSIVE" id="44" shift="44"/>
+        <grammem name="АРХ" const_name="PMY_RG_ARCHAISM" id="45" shift="45"/>
+        <grammem name="2" const_name="PMY_RG_SECOND_CASE" id="46" shift="46"/>
+        <grammem name="ПОЭТ" const_name="PMY_RG_POETRY" id="47" shift="47"/>
+        <grammem name="ПРОФ" const_name="PMY_RG_PROFESSION" id="48" shift="48"/>
+        <grammem name="ПРЕВ" const_name="PMY_RG_SUPERLATIVE" id="49" shift="49"/>
+        <grammem name="ПОЛОЖ" const_name="PMY_RG_POSITIVE" id="50" shift="50"/>
+    </grammems>
+</gramtab>

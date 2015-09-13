@@ -1,0 +1,99 @@
+Changes with phpMorphy 0.3.7                                     15 Oct 2009
+    *) phpMorphy now work when mbstring overloads string functions, i.e. mbstring.func_overload  & 2 == 2
+Changes with phpMorphy 0.3.6                                     06 Sep 2009
+    *) getGramInfo(), getGramInfoMergeForms(), getAncode() returns distinct descriptors
+    *) Add new method castFormByAncode()
+    *) More accurate work with indeclinable words
+    *) castFormByPattern() now recieve grammems to compare for each part of speech
+Changes with phpMorphy 0.3.5                                     31 Aug 2009
+    *) Add new methods getGramInfo, getGramInfoMergeForms, getAllFormsWithAncodes, castFormByGramInfo, castFormByPattern
+    *) getAllFormsWithGramInfo signature changed, second argument is (bool)$asText now
+    *) New initialization options: use_ancodes_cache, resolve_ancodes
+    *) Add ancodes cache
+    *) Add ability to use phpMorphy <=> Dialing ancode ids mapping
+Changes with phpMorphy 0.3.4                                     23 Aug 2009
+    *) Fix bug in phpMorphy_WordForm::hasGrammems($grammems) when $grammems not array
+    *) Fix bug in phpMorphy_Shm_Cache::openSegement(), throws exception with invalid  message
+    *) Add missing files for generating dictionaries (/utils directory)
+Changes with phpMorphy 0.3.3                                     15 Aug 2009
+    *) Fix phpMorphy_Fsa::collect() in sparse mode
+    *) New methods in morphiers for access to Fsa_Interface from Finder, Morphier
+Changes with phpMorphy 0.3.2                                     08 Apr 2009
+    *) getWordFormsByXXX always return array
+Changes with phpMorphy 0.3.0                                     02 Apr 2009
+    *) new dictionaries format
+    *) mutliencoding support(need dictionary compilation)
+    *) added functionality for control of prediction process
+    *) new enhanced API for deep analisys
+    *) new query: getPartOfSpeech()
+    *) rewritten shared memory cache code
+Changes with phpMorphy 0.2.5                                     12 Jul 2008
+    *) Fixed bug: with_gramtab option have no effect; thanks to andreypaa
+Changes with phpMorphy 0.2.4                                     26 May 2008
+    *) Improve perfomance in bulk mode; thanks to Wicked
+    *) Fixed bug in shm storage type, with php5.2.6; thanks to berkut
+
+Changes with phpMorphy 0.2.3.2                                   08 Apr 2008
+    *) Fixed bug with disabled prediction(both) and bulk mode used
+
+Changes with phpMorphy 0.2.3.1                                   02 Aug 2007
+    *) Remove php4 stuff from fsa_state.php
+
+Changes with phpMorphy 0.2.3                                     02 Aug 2007
+    *) Remove all var stuff from source code(now really E_STRICT compatible, i hope =])
+    *) Rename all interfaces to {interface name}_Interface(old version is: phpMorphy_I{interface name})
+
+Changes with phpMorphy 0.2.2                                     24 Jun 2007
+    *) Remove php4 support
+    *) Fully E_STRICT compatible
+    *) Fix bug with getAllFormsWithGramInfo() in bulk mode
+
+Changes with phpMorphy 0.2.1                                     22 Jun 2007
+    *) getPseudoRoot() method returns now ;)
+    *) getAllFormsWithGramInfo() in bulk mode returns wrong result:
+        BEFORE 0.2.1:
+        -------------
+        array(
+            'TEST' => array(
+                    'forms' => array(
+                        'TEST' => array(word forms),
+                    ),
+                    'common' => common ancode OR grammem(s),
+                    'all' => all gramcodes or grammems
+                ),
+                array(
+                    'forms' => array(
+                        WORD => array(forms)
+                    ),
+                    etc...
+                )
+            )
+        )
+
+        0.2.1:
+        -------------
+        array(
+            'TEST' => array(
+                array(
+                    'forms' => array(word forms),
+                    'common' => common ancode OR grammem(s),
+                    'all' => all gramcodes or grammems
+                ),
+                array(
+                    'forms' => array(word forms),
+                    etc...
+                )
+            )
+        )
+
+Changes with phpMorphy 0.2a                                      05 Apr 2007
+
+    *) Change dictionary format(now word lookup have O(N) complexity, N = word len)
+    *) Introduce shared memory storage type
+    *) Speed up about 100%
+    *) Introduce bulk mode
+    *) Removed some options from facade
+
+Changes with phpMorphy 0.1a                                      01 Feb 2007
+
+    *) The first public version.
