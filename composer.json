@@ -16,8 +16,8 @@
     },
     "autoload": {
         "classmap": [
-            "vendor/phpmorphy/src/common.php",
-            "vendor/phpmorphy/src/"
+            "libs/phpmorphy/src/common.php",
+            "libs/phpmorphy/src/"
         ],
         "psr-4": {
             "cijic\\phpMorphy\\": "src"

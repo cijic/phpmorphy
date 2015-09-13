@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gramtab>
+    <part_of_speech>
+        <pos name="NOUN" const_name="PMY_EP_NOUN" id="0"/>
+        <pos name="ADJECTIVE" const_name="PMY_EP_ADJ" id="1"/>
+        <pos name="VERB" const_name="PMY_EP_VERB" id="2"/>
+        <pos name="VBE" const_name="PMY_EP_VBE" id="3"/>
+        <pos name="MOD" const_name="PMY_EP_MOD" id="4"/>
+        <pos name="NUMERAL" const_name="PMY_EP_NUMERAL" id="5"/>
+        <pos name="CONJ" const_name="PMY_EP_CONJ" id="6"/>
+        <pos name="INT" const_name="PMY_EP_INTERJ" id="7"/>
+        <pos name="PREP" const_name="PMY_EP_PREP" id="8"/>
+        <pos name="PART" const_name="PMY_EP_PARTICLE" id="9"/>
+        <pos name="ARTICLE" const_name="PMY_EP_ART" id="10"/>
+        <pos name="ADVERB" const_name="PMY_EP_ADV" id="11"/>
+        <pos name="PN" const_name="PMY_EP_PN" id="12"/>
+        <pos name="ORDNUM" const_name="PMY_EP_ORDNUM" id="13"/>
+        <pos name="PRON" const_name="PMY_EP_PRON" id="14"/>
+        <pos name="POSS" const_name="PMY_EP_POSS" id="15"/>
+        <pos name="PN_ADJ" const_name="PMY_EP_PN_ADJ" id="16"/>
+    </part_of_speech>
+    <grammems>
+        <grammem name="SG" const_name="PMY_EG_SINGULAR" id="0" shift="0"/>
+        <grammem name="PL" const_name="PMY_EG_PLURAL" id="1" shift="1"/>
+        <grammem name="M" const_name="PMY_EG_MASCULINUM" id="2" shift="2"/>
+        <grammem name="F" const_name="PMY_EG_FEMINUM" id="3" shift="3"/>
+        <grammem name="ANIM" const_name="PMY_EG_ANIMATIVE" id="4" shift="4"/>
+        <grammem name="PERF" const_name="PMY_EG_PERFECTIVE" id="5" shift="5"/>
+        <grammem name="NOM" const_name="PMY_EG_NOMINATIVE" id="6" shift="6"/>
+        <grammem name="OBJ" const_name="PMY_EG_OBJECT_CASE" id="7" shift="7"/>
+        <grammem name="NARR" const_name="PMY_EG_NARRATIVE" id="8" shift="8"/>
+        <grammem name="GEO" const_name="PMY_EG_GEOGRAPHICS" id="9" shift="9"/>
+        <grammem name="PROP" const_name="PMY_EG_PROPER" id="10" shift="10"/>
+        <grammem name="PERS" const_name="PMY_EG_PERSONAL_PRONOUN" id="11" shift="11"/>
+        <grammem name="POSS" const_name="PMY_EG_POSSESSIVE" id="12" shift="12"/>
+        <grammem name="PRED" const_name="PMY_EG_PREDICATIVE" id="13" shift="13"/>
+        <grammem name="UNCOUNT" const_name="PMY_EG_UNCOUNTABLE" id="14" shift="14"/>
+        <grammem name="REF" const_name="PMY_EG_REFLEXIVE_PRONOUN" id="15" shift="15"/>
+        <grammem name="DEM" const_name="PMY_EG_DEMONSTRATIVE_PRONOUN" id="16" shift="16"/>
+        <grammem name="MASS" const_name="PMY_EG_MASS" id="17" shift="17"/>
+        <grammem name="COMP" const_name="PMY_EG_COMPARATIV" id="18" shift="18"/>
+        <grammem name="SUP" const_name="PMY_EG_SUPREMUM" id="19" shift="19"/>
+        <grammem name="1" const_name="PMY_EG_FIRST_PERSON" id="20" shift="20"/>
+        <grammem name="2" const_name="PMY_EG_SECOND_PERSON" id="21" shift="21"/>
+        <grammem name="3" const_name="PMY_EG_THIRD_PERSON" id="22" shift="22"/>
+        <grammem name="PRSA" const_name="PMY_EG_PRESENT_INDEF" id="23" shift="23"/>
+        <grammem name="INF" const_name="PMY_EG_INFINITIVE" id="24" shift="24"/>
+        <grammem name="PASA" const_name="PMY_EG_PAST_INDEF" id="25" shift="25"/>
+        <grammem name="PP" const_name="PMY_EG_PAST_PARTICIPLE" id="26" shift="26"/>
+        <grammem name="ING" const_name="PMY_EG_GERUND" id="27" shift="27"/>
+        <grammem name="FUT" const_name="PMY_EG_FUTURUM" id="28" shift="28"/>
+        <grammem name="IF" const_name="PMY_EG_CONDITIONAL" id="29" shift="29"/>
+        <grammem name="PLSQ" const_name="PMY_EG_APOSTROPHE_S" id="30" shift="30"/>
+        <grammem name="PLSGS" const_name="PMY_EG_APOSTROPHE" id="31" shift="31"/>
+        <grammem name="NAME" const_name="PMY_EG_NAMES" id="32" shift="32"/>
+        <grammem name="ORG" const_name="PMY_EG_ORGANISATION" id="33" shift="33"/>
+    </grammems>
+</gramtab>

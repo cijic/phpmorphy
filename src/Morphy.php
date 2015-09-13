@@ -12,7 +12,7 @@ class Morphy
 
     public function __construct($language)
     {
-        $this->dictsPath = __DIR__ . '/../vendor/phpmorphy/dicts';
+        $this->dictsPath = __DIR__ . '/../libs/phpmorphy/dicts';
         $this->language = $language;
 
         try {
