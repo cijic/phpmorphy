@@ -57,7 +57,7 @@ $ composer require cijic/phpmorphy
 ## Usage
 
 ``` php
-$morphy = new Cijic\PHPMorphy();
+$morphy = new cijic\PHPMorphy();
 var_dump($morphy);
 ```
 

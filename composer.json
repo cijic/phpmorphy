@@ -15,8 +15,11 @@
         "php": ">=5.3.0"
     },
     "autoload": {
+        "classmap": [
+            "vendor/phpmorphy/src/common.php"
+        ],
         "psr-4": {
-            "Cijic\\PHPMorphy\\": "src"
+            "cijic\\PHPMorphy\\": "src"
         }
     }
 }
