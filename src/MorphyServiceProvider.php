@@ -24,7 +24,7 @@ class MorphyServiceProvider extends ServiceProvider
     public function register()
     {
         App::bind('morphy', function () {
-            return (new Morphy())->getMorphy();
+            return new Morphy();
         });
     }
 }

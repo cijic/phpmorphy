@@ -22,12 +22,15 @@ $ composer require cijic/phpmorphy
 ## Usage
 ``` php
 $morphy = new cijic\phpMorphy\Morphy('en');
-echo $morphy->getMorphy()->getPseudoRoot('FIGHTY');
-
+echo $morphy->getPseudoRoot('FIGHTY');
+```
+## Laravel support
+### Facade
+``` php
 Morphy::getPseudoRoot('БОЙЦОВЫЙ')
 ```
 
-## Add russian facade support
+### Add russian facade support
 
 Add to config/app.php:
 

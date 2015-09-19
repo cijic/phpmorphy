@@ -4,10 +4,9 @@ namespace cijic\phpMorphy;
 
 use phpMorphy;
 
-class Morphy
+class Morphy extends phpMorphy
 {
     protected $language;
-    protected $morphy;
     private $dictionaries = array('ru' => 'ru_RU', 'en' => 'en_EN');
 
     public function __construct($language = 'ru')
@@ -23,14 +22,9 @@ class Morphy
         }
 
         try {
-            $this->morphy = new phpMorphy($this->dictsPath, $this->language, $options);
+            parent::__construct($this->dictsPath, $this->language, $options);
         } catch(phpMorphy_Exception $e) {
             throw new Exception('Error occured while creating phpMorphy instance: ' . PHP_EOL . $e);
         }
-    }
-
-    public function getMorphy()
-    {
-        return $this->morphy;
     }
 }
