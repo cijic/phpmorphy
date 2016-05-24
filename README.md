@@ -1,11 +1,11 @@
-# cijic/phpmorphy
+# vladkolodka/phpmorphy
 
 phpMorphy --- morphological analyzer library for Russisan, English and German languages.  
-```cijic/phpMorphy``` is wrapper for phpMorphy library.
+```vladkolodka/phpMorphy``` is wrapper for phpMorphy library.
 
 Source website (in russian): http://phpmorphy.sourceforge.net/  
 SF project: http://sourceforge.net/projects/phpmorphy  
-Wrapper on Github: https://github.com/cijic/phpmorphy
+Wrapper on Github: https://github.com/vladkolodka/phpmorphy
 
 This library allow retireve follow morph information for any word:
 - Base (normal) form
@@ -16,12 +16,12 @@ This library allow retireve follow morph information for any word:
 
 Via Composer
 ``` bash
-$ composer require cijic/phpmorphy
+$ composer require vladkolodka/phpmorphy
 ```
 
 ## Usage
 ``` php
-$morphy = new cijic\phpMorphy\Morphy('en');
+$morphy = new vladkolodka\phpMorphy\Morphy('en');
 echo $morphy->getPseudoRoot('FIGHTY');
 ```
 ## Laravel support
@@ -36,12 +36,12 @@ Add to config/app.php:
 
 Section ```providers```
 ``` php
-cijic\phpMorphy\MorphyServiceProvider::class,
+vladkolodka\phpMorphy\MorphyServiceProvider::class,
 ```
 
 Section ```aliases```
 ``` php
-'Morphy'    => cijic\phpMorphy\Facade\Morphy::class,
+'Morphy'    => vladkolodka\phpMorphy\Facade\Morphy::class,
 ```
 
 ## Change log
@@ -51,7 +51,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
-If you discover any security related issues, please email altcode@ya.ru instead of using the issue tracker.
+If you discover any security related issues, please email vladkolodka@gmail.com instead of using the issue tracker.
 
 ## License
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
