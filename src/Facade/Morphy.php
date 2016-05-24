@@ -1,6 +1,6 @@
 <?php
 
-namespace cijic\phpMorphy\Facade;
+namespace vladkolodka\phpMorphy\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

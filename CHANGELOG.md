@@ -2,7 +2,8 @@
 
 All Notable changes to `phpmorphy` will be documented in this file
 
-## NEXT - YYYY-MM-DD
+### Updated
+- phpmorphy version `(0.3.7)`
 
 ### Added
 - Nothing
