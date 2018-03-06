@@ -1,10 +1,10 @@
 {
-    "name": "cijic/phpmorphy",
+    "name": "grigoryangeo/phpmorphy",
     "description": "phpMorphy - morphological analyzer library for Russisan, English languages.",
     "keywords": [
         "phpMorphy"
     ],
-    "homepage": "https://github.com/cijic/phpmorphy",
+    "homepage": "https://github.com/grigoryangeo/phpmorphy",
     "license": "MIT",
     "authors": [{
         "name": "Chiril Teterea",
