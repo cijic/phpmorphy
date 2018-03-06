@@ -58,7 +58,7 @@ class phpMorphy_FilesBundle {
         $dir,
         $lang;
 
-    function phpMorphy_FilesBundle($dirName, $lang) {
+    function __construct($dirName, $lang) {
         $this->dir = rtrim($dirName, "\\/" . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $this->setLang($lang);
     }

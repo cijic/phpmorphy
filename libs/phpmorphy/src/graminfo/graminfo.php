@@ -95,7 +95,7 @@ abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
         $ends,
         $ends_size;
     
-    protected function phpMorphy_GramInfo($resource, $header) {
+    protected function __construct($resource, $header) {
         $this->resource = $resource;
         $this->header = $header;
         
@@ -209,7 +209,7 @@ abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
 class phpMorphy_GramInfo_Decorator implements phpMorphy_GramInfo_Interace {
     protected $info;
     
-    function phpMorphy_GramInfo_Decorator(phpMorphy_GramInfo_Interace $info) {
+    function __construct(phpMorphy_GramInfo_Interace $info) {
         $this->info = $info;
     }
     
