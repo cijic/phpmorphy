@@ -37,13 +37,13 @@ if(!defined('PHPMORPHY_SHM_HEADER_MAX_SIZE')) {
 }
 
 interface phpMorphy_Shm_Cache_Interface {
-    function close();
-    function get($filePath);
-    function clear();
-    function delete($filePath);
-    function reload($filePath);
-    function reloadIfExists($filePath);
-    function free();
+    public function close();
+    public function get($filePath);
+    public function clear();
+    public function delete($filePath);
+    public function reload($filePath);
+    public function reloadIfExists($filePath);
+    public function free();
 }
 
 class phpMorphy_Shm_Cache_FileDescriptor {
@@ -52,15 +52,15 @@ class phpMorphy_Shm_Cache_FileDescriptor {
         $file_size,
         $offset;
     
-    function __construct($shmId, $fileSize, $offset) {
+    public function __construct($shmId, $fileSize, $offset) {
         $this->shm_id = $shmId;
         $this->file_size = $fileSize;
         $this->offset = $offset;
     }
     
-    function getShmId() { return $this->shm_id; }
-    function getFileSize() { return $this->file_size; }
-    function getOffset() { return $this->offset; }
+    public function getShmId() { return $this->shm_id; }
+    public function getFileSize() { return $this->file_size; }
+    public function getOffset() { return $this->offset; }
 }
 
 abstract class phpMorphy_Semaphore {
@@ -83,9 +83,9 @@ abstract class phpMorphy_Semaphore {
 };
 
 class phpMorphy_Semaphore_Empty extends phpMorphy_Semaphore {
-    function lock() { }
-    function unlock() { }
-    function remove() { }
+    public function lock() { }
+    public function unlock() { }
+    public function remove() { }
 };
 
 // TODO: implement this
@@ -112,7 +112,7 @@ class phpMorphy_Semaphore_Win extends phpMorphy_Semaphore {
         return $result;
     }
     
-    function lock() {
+    public function lock() {
         for($i = 0; $i < self::MAX_SLEEP_TIME; $i += self::USLEEP_TIME) {
             if(!file_exists($this->dir_path)) {
                 if(false !== @mkdir($this->dir_path, 0644)) {
@@ -126,11 +126,11 @@ class phpMorphy_Semaphore_Win extends phpMorphy_Semaphore {
         throw new phpMorphy_Exception("Can`t acquire semaphore");
     }
     
-    function unlock() {
+    public function unlock() {
         @rmdir($this->dir_path);
     }
     
-    function remove() {
+    public function remove() {
     }
 }
 
@@ -145,19 +145,19 @@ class phpMorphy_Semaphore_Nix extends phpMorphy_Semaphore {
         }
     }
     
-    function lock() {
+    public function lock() {
         if(false === sem_acquire($this->sem_id)) {
             throw new phpMorphy_Exception("Can`t acquire semaphore");
         }
     }
     
-    function unlock() {
+    public function unlock() {
         if(false === sem_release($this->sem_id)) {
             throw new phpMorphy_Exception("Can`t release semaphore");
         }
     }
     
-    function remove() {
+    public function remove() {
         sem_remove($this->sem_id);
     }
 }
@@ -169,14 +169,14 @@ class phpMorphy_Shm_Header {
         $files_map = array(),
         $free_map = array();
     
-    function __construct($segmentId, $maxSize) {
+    public function __construct($segmentId, $maxSize) {
         $this->max_size = (int)$maxSize;
         $this->segment_id = $segmentId;
         
         $this->clear();
     }
         
-    function lookup($filePath) {
+    public function lookup($filePath) {
         if(!$this->exists($filePath)) {
             throw new phpMorphy_Exception("'$filePath' not found in shm");
         }
@@ -184,11 +184,11 @@ class phpMorphy_Shm_Header {
         return $this->files_map[$this->normalizePath($filePath)];
     }
     
-    function exists($filePath) {
+    public function exists($filePath) {
         return isset($this->files_map[$this->normalizePath($filePath)]);
     }
     
-    function register($filePath, $fh) {
+    public function register($filePath, $fh) {
         if($this->exists($filePath)) {
             throw new phpMorphy_Exception("Can`t register, '$filePath' already exists");
         }
@@ -213,7 +213,7 @@ class phpMorphy_Shm_Header {
         return $entry;
     }
     
-    function delete($filePath) {
+    public function delete($filePath) {
         $data = $this->lookup($filePath);
         
         unset($this->files_map[$this->normalizePath($filePath)]);
@@ -221,12 +221,12 @@ class phpMorphy_Shm_Header {
         $this->freeBlock($data['offset'], $data['size']);
     }
     
-    function clear() {
+    public function clear() {
         $this->files_map = array();
         $this->free_map = array(0 => $this->max_size);
     }
     
-    function getAllFiles() {
+    public function getAllFiles() {
         return $this->files_map;
     }
     
@@ -305,7 +305,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         $segment
         ;
     
-    function __construct($options = array(), $clear = false) {
+    public function __construct($options = array(), $clear = false) {
         if(!isset(self::$EXTENSION_PRESENT)) {
             self::$EXTENSION_PRESENT = extension_loaded('shmop');
         }
@@ -346,7 +346,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         return (array)$options + $defaults;
     }
     
-    function close() {
+    public function close() {
         if(isset($this->segment)) {
             shmop_close($this->segment);
             $this->segment = null;
@@ -387,7 +387,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         return $result;
     }
     
-    function get($filePath) {
+    public function get($filePath) {
         if(!is_array($filePath)) {
             return $this->createFileDescriptor($this->safeInvoke($filePath, 'doGet'));
         } else {
@@ -457,7 +457,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         $header->clear();
     }
     
-    function clear() {
+    public function clear() {
         $this->safeInvoke(null, 'doClear');
     }
     
@@ -467,7 +467,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         }
     }
     
-    function delete($filePath) {
+    public function delete($filePath) {
         $this->safeInvoke($filePath, 'doDelete');
     }
     
@@ -496,7 +496,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         return $return;
     }
     
-    function reload($filePath) {
+    public function reload($filePath) {
         if(!is_array($filePath)) {
             return $this->createFileDescriptor($this->safeInvoke($filePath, 'doReload'));
         } else {
@@ -510,7 +510,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         }
     }
     
-    function reloadIfExists($filePath) {
+    public function reloadIfExists($filePath) {
         try {
             return $this->reload($filePath);
         } catch (Exception $e) {
@@ -518,7 +518,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         }
     }
     
-    function free() {
+    public function free() {
         $this->lock();
         if(false === shmop_delete($this->segment)) {
             throw new phpMorphy_Exception("Can`t delete $this->segment segment");
@@ -529,7 +529,7 @@ class phpMorphy_Shm_Cache implements phpMorphy_Shm_Cache_Interface {
         $this->unlock();
     }
     
-    function getFilesList() {
+    public function getFilesList() {
         $this->lock();
         
         $result = $this->readHeader()->getAllFiles();

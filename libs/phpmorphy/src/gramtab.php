@@ -21,67 +21,67 @@
  */
 
 interface phpMorphy_GramTab_Interface {
-    function getGrammems($ancodeId);
-    function getPartOfSpeech($ancodeId);
-    function resolveGrammemIds($ids);
-    function resolvePartOfSpeechId($id);
-    function includeConsts();
-    function ancodeToString($ancodeId, $commonAncode = null);
-    function stringToAncode($string);
-    function toString($partOfSpeechId, $grammemIds);
+    public function getGrammems($ancodeId);
+    public function getPartOfSpeech($ancodeId);
+    public function resolveGrammemIds($ids);
+    public function resolvePartOfSpeechId($id);
+    public function includeConsts();
+    public function ancodeToString($ancodeId, $commonAncode = null);
+    public function stringToAncode($string);
+    public function toString($partOfSpeechId, $grammemIds);
 }
 
 class phpMorphy_GramTab_Empty implements phpMorphy_GramTab_Interface {
-    function getGrammems($ancodeId) { return array(); }
-    function getPartOfSpeech($ancodeId) { return 0; }
-    function resolveGrammemIds($ids) { return is_array($ids) ? array() : ''; }
-    function resolvePartOfSpeechId($id) { return ''; }
-    function includeConsts() { }
-    function ancodeToString($ancodeId, $commonAncode = null) { return ''; }
-    function stringToAncode($string) { return null; }
-    function toString($partOfSpeechId, $grammemIds) { return ''; }
+    public function getGrammems($ancodeId) { return array(); }
+    public function getPartOfSpeech($ancodeId) { return 0; }
+    public function resolveGrammemIds($ids) { return is_array($ids) ? array() : ''; }
+    public function resolvePartOfSpeechId($id) { return ''; }
+    public function includeConsts() { }
+    public function ancodeToString($ancodeId, $commonAncode = null) { return ''; }
+    public function stringToAncode($string) { return null; }
+    public function toString($partOfSpeechId, $grammemIds) { return ''; }
 }
 
 class phpMorphy_GramTab_Proxy implements phpMorphy_GramTab_Interface {
     protected $storage;
     
-    function __construct(phpMorphy_Storage $storage) {
+    public function __construct(phpMorphy_Storage $storage) {
         $this->storage = $storage;
     }
     
-    function getGrammems($ancodeId) {
+    public function getGrammems($ancodeId) {
         return $this->__obj->getGrammems($ancodeId);
     }
     
-    function getPartOfSpeech($ancodeId) {
+    public function getPartOfSpeech($ancodeId) {
         return $this->__obj->getPartOfSpeech($ancodeId);
     }
     
-    function resolveGrammemIds($ids) {
+    public function resolveGrammemIds($ids) {
         return $this->__obj->resolveGrammemIds($ids);
     }
     
-    function resolvePartOfSpeechId($id) {
+    public function resolvePartOfSpeechId($id) {
         return $this->__obj->resolvePartOfSpeechId($id);
     }
     
-    function includeConsts() {
+    public function includeConsts() {
         return $this->__obj->includeConsts();
     }
 
-    function ancodeToString($ancodeId, $commonAncode = null) {
+    public function ancodeToString($ancodeId, $commonAncode = null) {
         return $this->__obj->ancodeToString($ancodeId, $commonAncode);
     }
     
-    function stringToAncode($string) {
+    public function stringToAncode($string) {
         return $this->__obj->stringToAncode($string);
     }
 
-    function toString($partOfSpeechId, $grammemIds) {
+    public function toString($partOfSpeechId, $grammemIds) {
         return $this->__obj->toString($partOfSpeechId, $grammemIds);
     }
 
-    function __get($name) {
+    public function __get($name) {
         if($name === '__obj') {
             $this->__obj = phpMorphy_GramTab::create($this->storage);
             unset($this->storage);
@@ -118,7 +118,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return new phpMorphy_GramTab($storage);
     }
     
-    function getGrammems($ancodeId) {
+    public function getGrammems($ancodeId) {
         if(!isset($this->ancodes[$ancodeId])) {
             throw new phpMorphy_Exception("Invalid ancode id '$ancodeId'");
         }
@@ -126,7 +126,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return $this->ancodes[$ancodeId]['grammem_ids'];
     }
 
-    function getPartOfSpeech($ancodeId) {
+    public function getPartOfSpeech($ancodeId) {
         if(!isset($this->ancodes[$ancodeId])) {
             throw new phpMorphy_Exception("Invalid ancode id '$ancodeId'");
         }
@@ -134,7 +134,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return $this->ancodes[$ancodeId]['pos_id'];
     }
     
-    function resolveGrammemIds($ids) {
+    public function resolveGrammemIds($ids) {
         if(is_array($ids)) {
             $result = array();
             
@@ -156,7 +156,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         }
     }
     
-    function resolvePartOfSpeechId($id) {
+    public function resolvePartOfSpeechId($id) {
         if(!isset($this->poses[$id])) {
             throw new phpMorphy_Exception("Invalid part of speech id '$id'");
         }
@@ -164,11 +164,11 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return $this->poses[$id]['name'];
     }
     
-    function includeConsts() {
+    public function includeConsts() {
         require_once(PHPMORPHY_DIR . '/gramtab_consts.php');
     }
 
-    function ancodeToString($ancodeId, $commonAncode = null) {
+    public function ancodeToString($ancodeId, $commonAncode = null) {
         if(isset($commonAncode)) {
             $commonAncode = implode(',', $this->getGrammems($commonAncode)) . ',';
         }
@@ -182,7 +182,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
     protected function findAncode($partOfSpeech, $grammems) {
     }
 
-    function stringToAncode($string) {
+    public function stringToAncode($string) {
         if(!isset($string)) {
             return null;
         }
@@ -194,7 +194,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return $this->__ancodes_map[$string];
     }
 
-    function toString($partOfSpeechId, $grammemIds) {
+    public function toString($partOfSpeechId, $grammemIds) {
         return $partOfSpeechId . ' ' . implode(',', $grammemIds);
     }
 
@@ -210,7 +210,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         return $result;
     }
 
-    function __get($propName) {
+    public function __get($propName) {
         switch($propName) {
             case '__ancodes_map':
                 $this->__ancodes_map = $this->buildAncodesMap();

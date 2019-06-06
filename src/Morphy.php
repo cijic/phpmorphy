@@ -7,11 +7,11 @@ use phpMorphy;
 class Morphy extends phpMorphy
 {
     protected $language;
-    private $dictionaries = array('ru' => 'ru_RU', 'en' => 'en_EN', 'ua' => 'uk_UA', 'de' => 'de_DE' );
+    private $dictionaries = array('ru' => 'ru_RU', 'en' => 'en_EN', 'ua' => 'uk_UA', 'de' => 'de_DE' );;
 
     public function __construct($language = 'ru')
     {
-        $this->dictsPath = __DIR__ . '/../libs/phpmorphy/dicts';
+        $this->dictsPath = realpath(__DIR__ . '/../libs/phpmorphy/dicts');
         $this->language = $this->dictionaries[$language];
         $options = [];
 
