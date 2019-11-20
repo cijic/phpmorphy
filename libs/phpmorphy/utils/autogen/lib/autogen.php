@@ -1,21 +1,21 @@
 <?php
 class Tpl {
     var $dir;
-    
-    function Tpl($dir) {
+
+    function __construct($dir) {
         $this->dir = $dir;
     }
-    
+
     function get($tpl, $opts) {
         ob_start();
-        
+
         extract($opts);
-        
+
         include("$this->dir/$tpl.tpl.php");
-        
+
         $content = ob_get_contents();
         ob_end_clean();
-        
+
         return $content;
     }
 };
@@ -23,28 +23,28 @@ class Tpl {
 class Helper_Base {
     var $tpl;
     var $storage;
-    
-    function Helper_Base($tpl, $storage) {
+
+    function __construct($tpl, $storage) {
         $this->tpl = $tpl;
         $this->storage = $storage;
     }
-    
+
     function out($str, $suffix) {
         if(strlen($str)) {
             echo $str, $suffix;
         }
     }
-    
+
     function name() { return strtolower(str_replace('Helper_', '', get_class($this))); }
-    
+
     function className() {
         $suffix = ucfirst($this->name());
         $storage_prefix = ucfirst($this->storage->name());
         $class = $this->parentClassName();
-        
+
         return "{$class}_{$suffix}_{$storage_prefix}";
     }
-    
+
     function parentClassName() { }
 }
 
@@ -52,7 +52,7 @@ class StorageHelper {
     function name() {
         return strtolower(str_replace(__CLASS__ . '_', '', get_class($this)));
     }
-    
+
     function prolog() { }
     function seek($offset) { }
     function read($offset, $len) { }

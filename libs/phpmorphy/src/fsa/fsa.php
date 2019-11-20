@@ -26,19 +26,19 @@ interface phpMorphy_Fsa_Interface {
      * @return array
      */
     function getRootTrans();
-    
+
     /**
      * Returns root state object
      * @return
      */
     function getRootState();
-    
+
     /**
      * Returns alphabet i.e. all chars used in automat
      * @return array
      */
     function getAlphabet();
-    
+
     /**
      * Return annotation for given transition(if annotation flag is set for given trans)
      *
@@ -46,7 +46,7 @@ interface phpMorphy_Fsa_Interface {
      * @return string
      */
     function getAnnot($trans);
-    
+
     /**
      * Find word in automat
      *
@@ -56,7 +56,7 @@ interface phpMorphy_Fsa_Interface {
      * @return bool TRUE if word is found, FALSE otherwise
      */
     function walk($trans, $word, $readAnnot = true);
-    
+
     /**
      * Traverse automat and collect words
      * For each found words $callback function invoked with follow arguments:
@@ -69,7 +69,7 @@ interface phpMorphy_Fsa_Interface {
      * @param string $path string to be append to all words
      */
     function collect($startNode, $callback, $readAnnot = true, $path = '');
-    
+
     /**
      * Read state at given index
      *
@@ -77,7 +77,7 @@ interface phpMorphy_Fsa_Interface {
      * @return array
      */
     function readState($index);
-    
+
     /**
      * Unpack transition from binary form to array
      *
@@ -89,15 +89,15 @@ interface phpMorphy_Fsa_Interface {
 
 abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
     const HEADER_SIZE = 128;
-    
+
     protected
         $resource,
         $header,
         $fsa_start,
         $root_trans,
-        $alphabet;  
-    
-    protected function phpMorphy_Fsa($resource, $header) {
+        $alphabet;
+
+    protected function __construct($resource, $header) {
         $this->resource = $resource;
         $this->header = $header;
         $this->fsa_start = $header['fsa_offset'];
@@ -109,15 +109,15 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
         if($lazy) {
             return new phpMorphy_Fsa_Proxy($storage);
         }
-        
+
         $header = phpMorphy_Fsa::readHeader(
             $storage->read(0, self::HEADER_SIZE, true)
         );
-        
+
         if(!phpMorphy_Fsa::validateHeader($header)) {
             throw new phpMorphy_Exception('Invalid fsa format');
         }
-        
+
         if($header['flags']['is_sparse']) {
             $type = 'sparse';
         } else if($header['flags']['is_tree']) {
@@ -125,42 +125,42 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
         } else {
             throw new phpMorphy_Exception('Only sparse or tree fsa`s supported');
         }
-        
+
         $storage_type = $storage->getTypeAsString();
         $file_path = dirname(__FILE__) . "/access/fsa_{$type}_{$storage_type}.php";
         $clazz = 'phpMorphy_Fsa_' . ucfirst($type) . '_' . ucfirst($storage_type);
-        
+
         require_once($file_path);
         return new $clazz(
             $storage->getResource(),
             $header
         );
     }
-    
+
     function getRootTrans() { return $this->root_trans; }
-    
+
     function getRootState() {
         return $this->createState($this->getRootStateIndex());
     }
-    
+
     function getAlphabet() {
         if(!isset($this->alphabet)) {
             $this->alphabet = str_split($this->readAlphabet());
         }
-        
+
         return $this->alphabet;
     }
-    
+
     protected function createState($index) {
         require_once(PHPMORPHY_DIR . '/fsa/fsa_state.php');
         return new phpMorphy_State($this, $index);
     }
-    
+
     static protected function readHeader($headerRaw) {
         if($GLOBALS['__phpmorphy_strlen']($headerRaw) != self::HEADER_SIZE) {
             throw new phpMorphy_Exception('Invalid header string given');
         }
-        
+
         $header = unpack(
             'a4fourcc/Vver/Vflags/Valphabet_offset/Vfsa_offset/Vannot_offset/Valphabet_size/Vtranses_count/Vannot_length_size/' .
             'Vannot_chunk_size/Vannot_chunks_count/Vchar_size/Vpadding_size/Vdest_size/Vhash_size',
@@ -179,12 +179,12 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
         $flags['is_be'] =  $raw_flags & 0x08 ? true : false;
 
         $header['flags'] = $flags;
-        
+
         $header['trans_size'] = $header['char_size'] + $header['padding_size'] + $header['dest_size'] + $header['hash_size'];
-        
+
         return $header;
     }
-    
+
     // static
     static protected function validateHeader($header) {
         if(
@@ -202,12 +202,12 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
         ) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     protected function getRootStateIndex() { return 0; }
-    
+
     abstract protected function readRootTrans();
     abstract protected function readAlphabet();
 };
@@ -216,11 +216,11 @@ class phpMorphy_Fsa_WordsCollector {
     protected
         $items = array(),
         $limit;
-    
-    function phpMorphy_Fsa_WordsCollector($collectLimit) {
+
+    function __construct($collectLimit) {
         $this->limit = $collectLimit;
     }
-    
+
     function collect($word, $annot) {
         if(count($this->items) < $this->limit) {
             $this->items[$word] = $annot;
@@ -229,7 +229,7 @@ class phpMorphy_Fsa_WordsCollector {
             return false;
         }
     }
-    
+
     function getItems() { return $this->items; }
     function clear() { $this->items = array(); }
     function getCallback() { return array($this, 'collect'); }
@@ -237,11 +237,11 @@ class phpMorphy_Fsa_WordsCollector {
 
 class phpMorphy_Fsa_Decorator implements phpMorphy_Fsa_Interface {
     protected $fsa;
-    
-    function phpMorphy_Fsa_Decorator(phpMorphy_Fsa_Interface $fsa) {
+
+    function __construct(phpMorphy_Fsa_Interface $fsa) {
         $this->fsa = $fsa;
     }
-    
+
     function getRootTrans() { return $this->fsa->getRootTrans(); }
     function getRootState() { return $this->fsa->getRootState(); }
     function getAlphabet() { return $this->fsa->getAlphabet(); }
@@ -254,20 +254,20 @@ class phpMorphy_Fsa_Decorator implements phpMorphy_Fsa_Interface {
 
 class phpMorphy_Fsa_Proxy extends phpMorphy_Fsa_Decorator {
     protected $storage;
-    
+
     function __construct(phpMorphy_Storage $storage) {
         $this->storage = $storage;
         unset($this->fsa);
     }
-    
+
     function __get($propName) {
         if($propName == 'fsa') {
             $this->fsa = phpMorphy_Fsa::create($this->storage, false);
-            
+
             unset($this->storage);
             return $this->fsa;
         }
-        
+
         throw new phpMorphy_Exception("Unknown prop name '$propName'");
     }
 }
