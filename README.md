@@ -1,6 +1,6 @@
 # cijic/phpmorphy
 
-phpMorphy --- morphological analyzer library for Russisan, English and German languages.  
+phpMorphy --- morphological analyzer library for Russisan, English, German and Ukrainian languages.  
 ```cijic/phpMorphy``` is Laravel wrapper for phpMorphy library with PHP7 support.
 
 Source website (in russian): http://phpmorphy.sourceforge.net/  
