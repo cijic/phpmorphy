@@ -891,27 +891,27 @@ class phpMorphy_WordDescriptor_Collection implements Countable, IteratorAggregat
         return $result;
     }
     
-    public function offsetExists($off) {
+    public function offsetExists($off): bool {
         return isset($this->descriptors[$off]);
     }
     
-    public function offsetUnset($off) {
+    public function offsetUnset($off): void {
         throw new phpMorphy_Exception(__CLASS__ . " is not mutable");
     }
     
-    public function offsetSet($off, $value) {
+    public function offsetSet($off, $value): void {
         throw new phpMorphy_Exception(__CLASS__ . " is not mutable");
     }
     
-    public function offsetGet($off) {
+    public function offsetGet($off): mixed {
         return $this->getDescriptor($off);
     }
     
-    public function count() {
+    public function count(): int {
         return count($this->descriptors);
     }
     
-    public function getIterator() {
+    public function getIterator(): \Traversable {
         return new ArrayIterator($this->descriptors);
     }
 }
@@ -1123,29 +1123,29 @@ class phpMorphy_WordDescriptor implements Countable, ArrayAccess, IteratorAggreg
 //        return count($result) ? $result : false;
     }
     
-    public function count() {
+    public function count(): int {
         return count($this->readAllForms());
     }
     
-    public function offsetExists($off) {
+    public function offsetExists($off): bool {
         $this->readAllForms();
         
         return isset($this->all_forms[$off]);
     }
     
-    public function offsetSet($off, $value) {
+    public function offsetSet($off, $value): void {
         throw new phpMorphy_Exception(__CLASS__ . " is not mutable");
     }
     
-    public function offsetUnset($off) {
+    public function offsetUnset($off): void {
         throw new phpMorphy_Exception(__CLASS__ . " is not mutable");
     }
     
-    public function offsetGet($off) {
+    public function offsetGet($off): mixed {
         return $this->getWordForm($off);
     }
     
-    public function getIterator() {
+    public function getIterator(): \Traversable {
         $this->readAllForms();
         
         return new ArrayIterator($this->all_forms);

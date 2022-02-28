@@ -40,7 +40,7 @@ abstract class phpMorphy_Mrd_Section implements Iterator, Countable {
 		return $this->count() + 1;
 	}
 	
-	function count() {
+	function count(): int {
 		return $this->section_size;
 	}
 	
@@ -52,12 +52,12 @@ abstract class phpMorphy_Mrd_Section implements Iterator, Countable {
 		return $this->current_line;
 	}
 	
-	function rewind() {
+	function rewind(): void {
 		$this->current_line = 0;
 		$this->file_it->seek($this->start_line + 1);
 	}
 	
-	function valid() {
+	function valid(): bool {
 		if($this->current_line >= $this->section_size) {
 			return false;
 		}
@@ -75,7 +75,7 @@ abstract class phpMorphy_Mrd_Section implements Iterator, Countable {
 		return $this->processLine(rtrim($this->file_it->current()));
 	}
 	
-	function next() {
+	function next(): void {
 		$this->file_it->next();
 		$this->current_line++;
 	}
