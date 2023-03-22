@@ -20,9 +20,18 @@ $ composer require cijic/phpmorphy
 ```
 
 ## Usage
-``` php
+
+```php
 $morphy = new cijic\phpMorphy\Morphy('en');
-echo $morphy->getPseudoRoot('FIGHTY');
+print_r($morphy->getPseudoRoot('FIGHTY'));
+```
+result 
+```
+Array
+(
+    [0] => FIGHTY
+    [1] => FIGHT
+)
 ```
 ## Laravel support
 ### Facade
