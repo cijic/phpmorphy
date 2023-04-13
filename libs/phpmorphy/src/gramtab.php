@@ -97,7 +97,7 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         $data,
         $ancodes,
         $grammems,
-        // $__ancodes_map,
+        $__ancodes_map,
         $poses;
 
     protected function __construct(phpMorphy_Storage $storage) {
@@ -186,6 +186,10 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
             return null;
         }
 
+        if ($this->__ancodes_map === null) {
+            $this->__ancodes_map = $this->buildAncodesMap();
+        }
+
         if(!isset($this->__ancodes_map[$string])) {
             throw new phpMorphy_Exception("Ancode with '$string' graminfo not found");
         }
@@ -207,15 +211,5 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         }
 
         return $result;
-    }
-
-    public function __get($propName) {
-        switch($propName) {
-            case '__ancodes_map':
-                $this->__ancodes_map = $this->buildAncodesMap();
-                return $this->__ancodes_map;
-        }
-
-        throw new phpMorphy_Exception("Unknown '$propName' property");
     }
 }
