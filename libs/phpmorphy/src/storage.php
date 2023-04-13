@@ -19,7 +19,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
- 
+
 define('PHPMORPHY_STORAGE_FILE',    'file');
 define('PHPMORPHY_STORAGE_MEM',     'mem');
 define('PHPMORPHY_STORAGE_SHM',     'shm');
@@ -28,12 +28,12 @@ abstract class phpMorphy_Storage {
     protected
         $file_name,
         $resource;
-    
+
     public function __construct($fileName) {
         $this->file_name = $fileName;
         $this->resource = $this->open($fileName);
     }
-    
+
     public function getFileName() { return $this->file_name; }
     public function getResource() { return $this->resource; }
     public function getTypeAsString() { return $this->getType(); }
@@ -51,10 +51,10 @@ abstract class phpMorphy_Storage {
         if($exactLength && $GLOBALS['__phpmorphy_strlen']($result) < $len) {
             throw new phpMorphy_Exception("Can`t read $len bytes at $offset offset, from '" . $this->getFileName() . "' file");
         }
-            
+
         return $result;
     }
-    
+
     abstract function readUnsafe($offset, $len);
     abstract function getFileSize();
     abstract function getType();
@@ -66,46 +66,46 @@ class phpMorphy_Storage_Proxy extends phpMorphy_Storage {
         $file_name,
         $type,
         $factory;
-        
+
     public function __construct($type, $fileName, $factory) {
         $this->file_name = $fileName;
         $this->type = $type;
         $this->factory = $factory;
     }
-    
+
     public function getFileName() { return $this->__obj->getFileName(); }
     public function getResource() { return $this->__obj->getResource(); }
     public function getFileSize() { return $this->__obj->getFileSize(); }
     public function getType() { return $this->__obj->getType(); }
     public function readUnsafe($offset, $len) { return $this->__obj->readUnsafe($offset, $len); }
     protected function open($fileName) { return $this->__obj->open($fileName); }
-    
+
     public function __get($propName) {
         if($propName === '__obj') {
             $this->__obj = $this->factory->open($this->type, $this->file_name, false);
-            
+
             unset($this->file_name);
             unset($this->type);
             unset($this->factory);
-            
+
             return $this->__obj;
         }
-        
+
         throw new phpMorphy_Exception("Unknown '$propName' property");
     }
 }
 
 class phpMorphy_Storage_File extends phpMorphy_Storage {
     public function getType() { return PHPMORPHY_STORAGE_FILE; }
-    
+
     public function getFileSize() {
         if(false === ($stat = fstat($this->resource))) {
             throw new phpMorphy_Exception('Can`t invoke fstat for ' . $this->file_name . ' file');
         }
-        
+
         return $stat['size'];
     }
-    
+
     public function readUnsafe($offset, $len) {
         if(0 !== fseek($this->resource, $offset)) {
             throw new phpMorphy_Exception("Can`t seek to $offset offset");
@@ -113,32 +113,32 @@ class phpMorphy_Storage_File extends phpMorphy_Storage {
 
         return fread($this->resource, $len);
     }
-    
+
     public function open($fileName) {
         if(false === ($fh = fopen($fileName, 'rb'))) {
             throw new phpMorphy_Exception("Can`t open $this->file_name file");
         }
-        
+
         return $fh;
     }
 }
 
 class phpMorphy_Storage_Mem extends phpMorphy_Storage {
     public function getType() { return PHPMORPHY_STORAGE_MEM; }
-    
+
     public function getFileSize() {
         return $GLOBALS['__phpmorphy_strlen']($this->resource);
     }
-    
+
     public function readUnsafe($offset, $len) {
         return $GLOBALS['__phpmorphy_substr']($this->resource, $offset, $len);
     }
-    
+
     public function open($fileName) {
         if(false === ($string = file_get_contents($fileName))) {
             throw new phpMorphy_Exception("Can`t read $fileName file");
         }
-        
+
         return $string;
     }
 }
@@ -146,26 +146,26 @@ class phpMorphy_Storage_Mem extends phpMorphy_Storage {
 class phpMorphy_Storage_Shm extends phpMorphy_Storage {
     protected
         $descriptor;
-    
+
     public function __construct($fileName, $shmCache) {
         $this->cache = $shmCache;
 
         parent::__construct($fileName);
     }
-        
+
     public function getFileSize() {
         return $this->descriptor->getFileSize();
     }
-    
+
     public function getType() { return PHPMORPHY_STORAGE_SHM; }
-    
+
     public function readUnsafe($offset, $len) {
         return shmop_read($this->resource['shm_id'], $this->resource['offset'] + $offset, $len);
     }
-    
+
     public function open($fileName) {
         $this->descriptor = $this->cache->get($fileName);
-        
+
         return array(
             'shm_id' => $this->descriptor->getShmId(),
             'offset' => $this->descriptor->getOffset()
@@ -177,44 +177,44 @@ class phpMorphy_Storage_Factory {
     protected
         $shm_cache,
         $shm_options;
-    
+
     public function __construct($shmOptions = array()) {
         $this->shm_options = $shmOptions;
     }
-    
+
     public function getShmCache() {
         if(!isset($this->shm_cache)) {
             $this->shm_cache = $this->createShmCache($this->shm_options);
         }
-        
+
         return $this->shm_cache;
     }
-    
+
     public function open($type, $fileName, $lazy) {
         switch($type) {
-            case PHPMORPHY_STORAGE_FILE: 
+            case PHPMORPHY_STORAGE_FILE:
             case PHPMORPHY_STORAGE_MEM:
             case PHPMORPHY_STORAGE_SHM: break;
             default:
                 throw new phpMorphy_Exception("Invalid storage type $type specified");
         }
-        
+
         if($lazy) {
             return new phpMorphy_Storage_Proxy($type, $fileName, $this);
         }
-        
+
         $clazz = 'phpMorphy_Storage_' . ucfirst($GLOBALS['__phpmorphy_strtolower']($type));
-        
+
         if($type != PHPMORPHY_STORAGE_SHM) {
             return new $clazz($fileName);
         } else {
             return new $clazz($fileName, $this->getShmCache());
         }
     }
-    
+
     protected function createShmCache($options) {
         require_once(PHPMORPHY_DIR . '/shm_utils.php');
-        
+
         return new phpMorphy_Shm_Cache($options, !empty($options['clear_on_create']));
     }
 }

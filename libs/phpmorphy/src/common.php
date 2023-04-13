@@ -82,7 +82,7 @@ class phpMorphy_FilesBundle {
     public function getGramInfoFile() {
         return $this->genFileName('morph_data');
     }
-    
+
     public function getGramInfoAncodesCacheFile() {
         return $this->genFileName('morph_data_ancodes_cache');
     }
@@ -98,7 +98,7 @@ class phpMorphy_FilesBundle {
     public function getGramTabFileWithTextIds() {
         return $this->genFileName('gramtab_txt');
     }
-    
+
     public function getDbaFile($type) {
         if(!isset($type)) {
             $type = 'db3';
@@ -106,7 +106,7 @@ class phpMorphy_FilesBundle {
 
         return $this->genFileName("common_dict_$type");
     }
-    
+
     public function getGramInfoHeaderCacheFile() {
         return $this->genFileName('morph_data_header_cache');
     }
@@ -185,7 +185,7 @@ class phpMorphy {
         $helper,
         $last_prediction_type
         ;
-    
+
     public function __construct($dir, $lang = null, $options = array()) {
         $this->options = $options = $this->repairOptions($options);
 
@@ -268,7 +268,7 @@ class phpMorphy {
     public function isLastPredicted() {
         return self::PREDICT_BY_NONE !== $this->last_prediction_type;
     }
-    
+
     public function getLastPredictionType() {
         return $this->last_prediction_type;
     }
@@ -676,7 +676,7 @@ class phpMorphy {
 
         return (array)$options + $defaults;
     }
-    
+
     public function __get($name) {
         switch($name) {
             case '__predict_by_db_morphier':
