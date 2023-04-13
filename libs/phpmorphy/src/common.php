@@ -677,31 +677,35 @@ class phpMorphy {
         return (array)$options + $defaults;
     }
 
+    private array $dynamicInstances = [];
     public function __get($name) {
+        if (isset($this->dynamicInstances[$name])) {
+            return $this->dynamicInstances[$name];
+        }
         switch($name) {
             case '__predict_by_db_morphier':
-                $this->__predict_by_db_morphier = $this->createPredictByDbMorphier(
+                $v = $this->createPredictByDbMorphier(
                     $this->predict_fsa,
                     $this->helper
                 );
 
                 break;
             case '__predict_by_suf_morphier':
-                $this->__predict_by_suf_morphier = $this->createPredictBySuffixMorphier(
+                $v = $this->createPredictBySuffixMorphier(
                     $this->common_fsa,
                     $this->helper
                 );
 
                 break;
             case '__bulk_morphier':
-                $this->__bulk_morphier = $this->createBulkMorphier(
+                $v = $this->createBulkMorphier(
                     $this->common_fsa,
                     $this->helper
                 );
 
                 break;
             case '__common_morphier':
-                $this->__common_morphier = $this->createCommonMorphier(
+                $v = $this->createCommonMorphier(
                     $this->common_fsa,
                     $this->helper
                 );
@@ -709,16 +713,17 @@ class phpMorphy {
                 break;
 
             case '__word_descriptor_serializer':
-                $this->__word_descriptor_serializer = $this->createWordDescriptorSerializer();
+                $v = $this->createWordDescriptorSerializer();
                 break;
             case '__grammems_provider':
-                $this->__grammems_provider = $this->createGrammemsProvider();
+                $v = $this->createGrammemsProvider();
                 break;
             default:
                 throw new phpMorphy_Exception("Invalid prop name '$name'");
         }
 
-        return $this->$name;
+        $this->dynamicInstances[$name] = $v;
+        return $v;
     }
 
     ////////////////////

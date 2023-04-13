@@ -65,7 +65,8 @@ class phpMorphy_Storage_Proxy extends phpMorphy_Storage {
     protected
         $file_name,
         $type,
-        $factory;
+        $factory,
+        $__obj;
 
     public function __construct($type, $fileName, $factory) {
         $this->file_name = $fileName;
@@ -73,25 +74,24 @@ class phpMorphy_Storage_Proxy extends phpMorphy_Storage {
         $this->factory = $factory;
     }
 
-    public function getFileName() { return $this->__obj->getFileName(); }
-    public function getResource() { return $this->__obj->getResource(); }
-    public function getFileSize() { return $this->__obj->getFileSize(); }
-    public function getType() { return $this->__obj->getType(); }
-    public function readUnsafe($offset, $len) { return $this->__obj->readUnsafe($offset, $len); }
-    protected function open($fileName) { return $this->__obj->open($fileName); }
+    public function getFileName() { return $this->getObj()->getFileName(); }
+    public function getResource() { return $this->getObj()->getResource(); }
+    public function getFileSize() { return $this->getObj()->getFileSize(); }
+    public function getType() { return $this->getObj()->getType(); }
+    public function readUnsafe($offset, $len) { return $this->getObj()->readUnsafe($offset, $len); }
+    protected function open($fileName) { return $this->getObj()->open($fileName); }
 
-    public function __get($propName) {
-        if($propName === '__obj') {
-            $this->__obj = $this->factory->open($this->type, $this->file_name, false);
-
-            unset($this->file_name);
-            unset($this->type);
-            unset($this->factory);
-
+    public function getObj() {
+        if ($this->__obj !== null) {
             return $this->__obj;
         }
+        $this->__obj = $this->factory->open($this->type, $this->file_name, false);
 
-        throw new phpMorphy_Exception("Unknown '$propName' property");
+        unset($this->file_name);
+        unset($this->type);
+        unset($this->factory);
+
+        return $this->__obj;
     }
 }
 

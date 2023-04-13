@@ -43,53 +43,52 @@ class phpMorphy_GramTab_Empty implements phpMorphy_GramTab_Interface {
 }
 
 class phpMorphy_GramTab_Proxy implements phpMorphy_GramTab_Interface {
-    protected $storage;
+    protected $storage, $__obj;
 
     public function __construct(phpMorphy_Storage $storage) {
         $this->storage = $storage;
     }
 
     public function getGrammems($ancodeId) {
-        return $this->__obj->getGrammems($ancodeId);
+        return $this->getObj()->getGrammems($ancodeId);
     }
 
     public function getPartOfSpeech($ancodeId) {
-        return $this->__obj->getPartOfSpeech($ancodeId);
+        return $this->getObj()->getPartOfSpeech($ancodeId);
     }
 
     public function resolveGrammemIds($ids) {
-        return $this->__obj->resolveGrammemIds($ids);
+        return $this->getObj()->resolveGrammemIds($ids);
     }
 
     public function resolvePartOfSpeechId($id) {
-        return $this->__obj->resolvePartOfSpeechId($id);
+        return $this->getObj()->resolvePartOfSpeechId($id);
     }
 
     public function includeConsts() {
-        return $this->__obj->includeConsts();
+        return $this->getObj()->includeConsts();
     }
 
     public function ancodeToString($ancodeId, $commonAncode = null) {
-        return $this->__obj->ancodeToString($ancodeId, $commonAncode);
+        return $this->getObj()->ancodeToString($ancodeId, $commonAncode);
     }
 
     public function stringToAncode($string) {
-        return $this->__obj->stringToAncode($string);
+        return $this->getObj()->stringToAncode($string);
     }
 
     public function toString($partOfSpeechId, $grammemIds) {
-        return $this->__obj->toString($partOfSpeechId, $grammemIds);
+        return $this->getObj()->toString($partOfSpeechId, $grammemIds);
     }
 
-    public function __get($name) {
-        if($name === '__obj') {
-            $this->__obj = phpMorphy_GramTab::create($this->storage);
-            unset($this->storage);
-
+    public function getObj() {
+        if ($this->__obj !== null) {
             return $this->__obj;
         }
+        $this->__obj = phpMorphy_GramTab::create($this->storage);
+        unset($this->storage);
 
-        throw new phpMorphy_Exception("Invalid prop name '$name'");
+        return $this->__obj;
     }
 }
 

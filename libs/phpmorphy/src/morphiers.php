@@ -196,8 +196,8 @@ interface phpMorphy_AncodesResolver_Interface {
 
 class phpMorphy_AncodesResolver_Proxy implements phpMorphy_AncodesResolver_Interface {
     protected
-        $args, $class;
-        //$__obj;
+        $args, $class,
+        $__obj;
 
 
     public function __construct($class, $ctorArgs) {
@@ -206,11 +206,11 @@ class phpMorphy_AncodesResolver_Proxy implements phpMorphy_AncodesResolver_Inter
     }
 
     public function unresolve($ancode) {
-        return $this->__obj->unresolve($ancode);
+        return $this->getObj()->unresolve($ancode);
     }
 
     public function resolve($ancodeId) {
-        return $this->__obj->resolve($ancodeId);
+        return $this->getObj()->resolve($ancodeId);
     }
 
     static function instantinate($class, $args) {
@@ -218,17 +218,16 @@ class phpMorphy_AncodesResolver_Proxy implements phpMorphy_AncodesResolver_Inter
         return $ref->newInstanceArgs($args);
     }
 
-    public function __get($propName) {
-        if($propName === '__obj') {
-            $this->__obj = $this->instantinate($this->class, $this->args);
-
-            unset($this->args);
-            unset($this->class);
-
+    public function getObj() {
+        if ($this->__obj !== null) {
             return $this->__obj;
         }
+        $this->__obj = $this->instantinate($this->class, $this->args);
 
-        throw new phpMorphy_Exception("Unknown '$propName' property");
+        unset($this->args);
+        unset($this->class);
+
+        return $this->__obj;
     }
 }
 
