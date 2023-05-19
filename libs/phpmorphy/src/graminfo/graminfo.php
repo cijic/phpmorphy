@@ -214,7 +214,7 @@ class phpMorphy_GramInfo_Decorator implements phpMorphy_GramInfo_Interace {
     }
     
     public function readGramInfoHeader($offset) { return $this->info->readGramInfoHeader($offset); }
-    public function getGramInfoHeaderSize() { return $this->info->getGramInfoHeaderSize($offset); }
+    public function getGramInfoHeaderSize() { return $this->info->getGramInfoHeaderSize(); }
     public function readAncodes($info) { return $this->info->readAncodes($info); }
     public function readFlexiaData($info) { return $this->info->readFlexiaData($info); }
     public function readAllGramInfoOffsets() { return $this->info->readAllGramInfoOffsets(); }
@@ -290,18 +290,16 @@ class phpMorphy_GramInfo_Proxy_WithHeader extends phpMorphy_GramInfo_Proxy {
 }
 
 class phpMorphy_GramInfo_RuntimeCaching extends phpMorphy_GramInfo_Decorator {
-    protected
-        $flexia = array(),
-        $ancodes = array();
-    
+    protected array $flexia = [];
+
     public function readFlexiaData($info) {
         $offset = $info['offset'];
 
-        if(!isset($this->flexia_all[$offset])) {
-            $this->flexia_all[$offset] = $this->info->readFlexiaData($info);
+        if(!isset($this->flexia[$offset])) {
+            $this->flexia[$offset] = $this->info->readFlexiaData($info);
         }
 
-        return $this->flexia_all[$offset];
+        return $this->flexia[$offset];
     }
 }
 
