@@ -667,7 +667,7 @@ class phpMorphy {
             'shm' => array(),
             'graminfo_as_text' => true,
             'storage' => PHPMORPHY_STORAGE_FILE,
-            'common_source' => $this->repairSourceOptions(@$options['common_source']),
+            'common_source' => $this->repairSourceOptions($options['common_source'] ?? ''),
             'predict_by_suffix' => true,
             'predict_by_db' => true,
             'use_ancodes_cache' => false,
