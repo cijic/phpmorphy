@@ -111,7 +111,6 @@ class phpMorphy_GramTab implements phpMorphy_GramTab_Interface {
         $this->poses = $this->data['poses'];
         $this->ancodes = $this->data['ancodes'];
     }
-
     // TODO: remove this
     static function create(phpMorphy_Storage $storage) {
         return new phpMorphy_GramTab($storage);
