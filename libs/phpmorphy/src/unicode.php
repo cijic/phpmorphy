@@ -116,7 +116,7 @@ abstract class phpMorphy_UnicodeHelper_Base extends phpMorphy_UnicodeHelper {
     }
 
 /*
-    function fixTrailing($str) {
+    public function fixTrailing($str) {
         $to = $this->encoding === 'utf-16' ? 'utf-32' : 'utf-16';
         
         if(self::ICONV) {
@@ -131,7 +131,7 @@ abstract class phpMorphy_UnicodeHelper_Base extends phpMorphy_UnicodeHelper {
     }
 */
 
-    function strlen($str) {
+    public function strlen($str) {
         if(isset(self::$STRLEN_FOO)) {
             $foo = self::$STRLEN_FOO;
             return $foo($str, $this->encoding);
@@ -152,11 +152,11 @@ class phpMorphy_UnicodeHelper_MultiByteFixed extends phpMorphy_UnicodeHelper_Bas
         $this->size = $size;
     }
     
-    function firstCharSize($str) {
+    public function firstCharSize($str) {
         return $this->size;
     }
     
-    function strrev($str) {
+    public function strrev($str) {
         return implode('', array_reverse(str_split($str, $this->size)));
     }
 
@@ -164,7 +164,7 @@ class phpMorphy_UnicodeHelper_MultiByteFixed extends phpMorphy_UnicodeHelper_Bas
         return $GLOBALS['__phpmorphy_strlen']($str) / $this->size;
     }
     
-    function fixTrailing($str) {
+    public function fixTrailing($str) {
         $len = $GLOBALS['__phpmorphy_strlen']($str);
         
         if(($len % $this->size) > 0) {
@@ -177,19 +177,19 @@ class phpMorphy_UnicodeHelper_MultiByteFixed extends phpMorphy_UnicodeHelper_Bas
 
 // single byte encoding
 class phpMorphy_UnicodeHelper_singlebyte extends phpMorphy_UnicodeHelper_Base {
-    function firstCharSize($str) {
+    public function firstCharSize($str) {
         return 1;
     }
     
-    function strrev($str) {
+    public function strrev($str) {
         return strrev($str);
     }
     
-    function strlen($str) {
+    public function strlen($str) {
         return $GLOBALS['__phpmorphy_strlen']($str);
     }
 
-    function fixTrailing($str) {
+    public function fixTrailing($str) {
         return $str;
     }
     
@@ -209,11 +209,11 @@ class phpMorphy_UnicodeHelper_utf_8 extends phpMorphy_UnicodeHelper_Base {
         $this->tails_length = $this->getTailsLength();
     }
     
-    function firstCharSize($str) {
+    public function firstCharSize($str) {
         return 1 + $this->tails_length[ord($str[0])];
     }
     
-    function strrev($str) {
+    public function strrev($str) {
         preg_match_all('/./us', $str, $matches);
         return implode('', array_reverse($matches[0]));
         /*
@@ -231,7 +231,7 @@ class phpMorphy_UnicodeHelper_utf_8 extends phpMorphy_UnicodeHelper_Base {
         */
     }
     
-    function fixTrailing($str) {
+    public function fixTrailing($str) {
         $strlen = $GLOBALS['__phpmorphy_strlen']($str);
         
         if(!$strlen) {
@@ -304,13 +304,13 @@ class phpMorphy_UnicodeHelper_utf_16_Base extends phpMorphy_UnicodeHelper_Base {
         $this->char_fmt = $isBigEndian ? 'n' : 'v';
     }
     
-    function firstCharSize($str) {
+    public function firstCharSize($str) {
         list(, $ord) = unpack($this->char_fmt, $str);
         
         return $ord >= 0xD800 && $ord <= 0xDFFF ? 4 : 2;
     }
     
-    function strrev($str) {
+    public function strrev($str) {
         $result = array();
         
         $count = $GLOBALS['__phpmorphy_strlen']($str) / 2;
@@ -336,7 +336,7 @@ class phpMorphy_UnicodeHelper_utf_16_Base extends phpMorphy_UnicodeHelper_Base {
         return call_user_func_array('pack', $words);
     }
     
-    function fixTrailing($str) {
+    public function fixTrailing($str) {
         $strlen = $GLOBALS['__phpmorphy_strlen']($str);
         
         if($strlen & 1) {

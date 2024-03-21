@@ -95,7 +95,7 @@ class phpMorphy_Dict_FlexiaModel_Normalized extends phpMorphy_Dict_FlexiaModel_D
         $this->manager = $manager;
     }
 
-    function getIterator() {
+    function getIterator(): \Traversable {
         return new phpMorphy_Iterator_TransformCallback(
             parent::getIterator(),
             array($this, '__decorate'),
@@ -103,7 +103,7 @@ class phpMorphy_Dict_FlexiaModel_Normalized extends phpMorphy_Dict_FlexiaModel_D
         );
     }
 
-    function offsetGet($offset) {
+    function offsetGet($offset): mixed {
         return $this->decorate(parent::offsetGet($offset));
     }
 

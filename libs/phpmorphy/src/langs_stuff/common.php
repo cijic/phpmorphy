@@ -1,16 +1,16 @@
 <?php
 interface phpMorphy_GrammemsProvider_Interface {
-    function getGrammems($partOfSpeech);
+    public function getGrammems($partOfSpeech);
 }
 
 class phpMorphy_GrammemsProvider_Decorator implements phpMorphy_GrammemsProvider_Interface {
     protected $inner;
 
-    function __construct(phpMorphy_GrammemsProvider_Interface $inner) {
+    public function __construct(phpMorphy_GrammemsProvider_Interface $inner) {
         $this->inner = $inner;
     }
 
-    function getGrammems($partOfSpeech) {
+    public function getGrammems($partOfSpeech) {
         return $this->inner->getGrammems($partOfSpeech);
     }
 }
@@ -20,13 +20,13 @@ abstract class phpMorphy_GrammemsProvider_Base implements phpMorphy_GrammemsProv
         $all_grammems,
         $grammems = array();
 
-    function __construct() {
+    public function __construct() {
         $this->all_grammems = $this->flatizeArray($this->getAllGrammemsGrouped());
     }
 
     abstract function getAllGrammemsGrouped();
 
-    function includeGroups($partOfSpeech, $names) {
+    public function includeGroups($partOfSpeech, $names) {
         $grammems = $this->getAllGrammemsGrouped();
         $names = array_flip((array)$names);
 
@@ -41,7 +41,7 @@ abstract class phpMorphy_GrammemsProvider_Base implements phpMorphy_GrammemsProv
         return $this;
     }
 
-    function excludeGroups($partOfSpeech, $names) {
+    public function excludeGroups($partOfSpeech, $names) {
         $grammems = $this->getAllGrammemsGrouped();
 
         foreach((array)$names as $key) {
@@ -53,12 +53,12 @@ abstract class phpMorphy_GrammemsProvider_Base implements phpMorphy_GrammemsProv
         return $this;
     }
 
-    function resetGroups($partOfSpeech) {
+    public function resetGroups($partOfSpeech) {
         unset($this->grammems[$partOfSpeech]);
         return $this;
     }
 
-    function resetGroupsForAll() {
+    public function resetGroupsForAll() {
         $this->grammems = array();
         return $this;
     }
@@ -67,7 +67,7 @@ abstract class phpMorphy_GrammemsProvider_Base implements phpMorphy_GrammemsProv
         return call_user_func_array('array_merge', $array);
     }
 
-    function getGrammems($partOfSpeech) {
+    public function getGrammems($partOfSpeech) {
         if(isset($this->grammems[$partOfSpeech])) {
             return $this->grammems[$partOfSpeech];
         } else {
@@ -77,11 +77,11 @@ abstract class phpMorphy_GrammemsProvider_Base implements phpMorphy_GrammemsProv
 }
 
 class phpMorphy_GrammemsProvider_Empty extends phpMorphy_GrammemsProvider_Base {
-    function getAllGrammemsGrouped() {
+    public function getAllGrammemsGrouped() {
         return array();
     }
 
-    function getGrammems($partOfSpeech) {
+    public function getGrammems($partOfSpeech) {
         return false;
     }
 }
@@ -90,7 +90,7 @@ abstract class phpMorphy_GrammemsProvider_ForFactory extends phpMorphy_GrammemsP
     protected
         $encoded_grammems;
 
-    function __construct($encoding) {
+    public function __construct($encoding) {
         $this->encoded_grammems = $this->encodeGrammems($this->getGrammemsMap(), $encoding);
 
         parent::__construct();
@@ -98,7 +98,7 @@ abstract class phpMorphy_GrammemsProvider_ForFactory extends phpMorphy_GrammemsP
 
     abstract function getGrammemsMap();
 
-    function getAllGrammemsGrouped() { 
+    public function getAllGrammemsGrouped() { 
         return $this->encoded_grammems;
     } 
 

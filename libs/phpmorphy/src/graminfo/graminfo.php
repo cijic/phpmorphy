@@ -25,65 +25,65 @@ interface phpMorphy_GramInfo_Interace {
      * Returns langugage for graminfo file
      * @return string
      */
-    function getLocale();
-
+    public function getLocale();
+    
     /**
      * Return encoding for graminfo file
      * @return string
      */
-    function getEncoding();
-
+    public function getEncoding();
+    
     /**
      * Return size of character (cp1251 - 1, utf8 - 1, utf16 - 2, utf32 - 4 etc)
      * @return int
      */
-    function getCharSize();
-
+    public function getCharSize();
+    
     /**
      * Return end of string value (usually string with \0 value of char_size + 1 length)
      * @return string
      */
-    function getEnds();
-
+    public function getEnds();
+    
     /**
      * Reads graminfo header
      *
      * @param int $offset
      * @return array
      */
-    function readGramInfoHeader($offset);
+    public function readGramInfoHeader($offset);
 
     /**
      * Returns size of header struct
      */
-    function getGramInfoHeaderSize();
-
+    public function getGramInfoHeaderSize();
+    
     /**
      * Read ancodes section for header retrieved with readGramInfoHeader
      *
      * @param array $info
      * @return array
      */
-    function readAncodes($info);
-
+    public function readAncodes($info);
+    
     /**
      * Read flexias section for header retrieved with readGramInfoHeader
      *
      * @param array $info
      * @return array
      */
-    function readFlexiaData($info);
-
+    public function readFlexiaData($info);
+    
     /**
      * Read all graminfo headers offsets, which can be used latter for readGramInfoHeader method
      * @return array
      */
-    function readAllGramInfoOffsets();
-
-    function getHeader();
-    function readAllPartOfSpeech();
-    function readAllGrammems();
-    function readAllAncodes();
+    public function readAllGramInfoOffsets();
+    
+    public function getHeader();
+    public function readAllPartOfSpeech();
+    public function readAllGrammems();
+    public function readAllAncodes();
 }
 
 abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
@@ -94,7 +94,7 @@ abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
         $header,
         $ends,
         $ends_size;
-
+    
     protected function __construct($resource, $header) {
         $this->resource = $resource;
         $this->header = $header;
@@ -123,24 +123,24 @@ abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
         require_once($file_path);
         return new $clazz($storage->getResource(), $header);
     }
-
-    function getLocale() {
+    
+    public function getLocale() {
         return $this->header['lang'];
     }
-
-    function getEncoding() {
+    
+    public function getEncoding() {
         return $this->header['encoding'];
     }
-
-    function getCharSize() {
+    
+    public function getCharSize() {
         return $this->header['char_size'];
     }
-
-    function getEnds() {
+    
+    public function getEnds() {
         return $this->ends;
     }
-
-    function getHeader() {
+    
+    public function getHeader() {
         return $this->header;
     }
 
@@ -208,36 +208,36 @@ abstract class phpMorphy_GramInfo implements phpMorphy_GramInfo_Interace {
 
 class phpMorphy_GramInfo_Decorator implements phpMorphy_GramInfo_Interace {
     protected $info;
-
-    function __construct(phpMorphy_GramInfo_Interace $info) {
+    
+    public function __construct(phpMorphy_GramInfo_Interace $info) {
         $this->info = $info;
     }
-
-    function readGramInfoHeader($offset) { return $this->info->readGramInfoHeader($offset); }
-    function getGramInfoHeaderSize() { return $this->info->getGramInfoHeaderSize($offset); }
-    function readAncodes($info) { return $this->info->readAncodes($info); }
-    function readFlexiaData($info) { return $this->info->readFlexiaData($info); }
-    function readAllGramInfoOffsets() { return $this->info->readAllGramInfoOffsets(); }
-    function readAllPartOfSpeech() { return $this->info->readAllPartOfSpeech(); }
-    function readAllGrammems() { return $this->info->readAllGrammems(); }
-    function readAllAncodes() { return $this->info->readAllAncodes(); }
-
-    function getLocale()  { return $this->info->getLocale(); }
-    function getEncoding()  { return $this->info->getEncoding(); }
-    function getCharSize()  { return $this->info->getCharSize(); }
-    function getEnds() { return $this->info->getEnds(); }
-    function getHeader() { return $this->info->getHeader(); }
+    
+    public function readGramInfoHeader($offset) { return $this->info->readGramInfoHeader($offset); }
+    public function getGramInfoHeaderSize() { return $this->info->getGramInfoHeaderSize(); }
+    public function readAncodes($info) { return $this->info->readAncodes($info); }
+    public function readFlexiaData($info) { return $this->info->readFlexiaData($info); }
+    public function readAllGramInfoOffsets() { return $this->info->readAllGramInfoOffsets(); }
+    public function readAllPartOfSpeech() { return $this->info->readAllPartOfSpeech(); }
+    public function readAllGrammems() { return $this->info->readAllGrammems(); }
+    public function readAllAncodes() { return $this->info->readAllAncodes(); }
+    
+    public function getLocale()  { return $this->info->getLocale(); }
+    public function getEncoding()  { return $this->info->getEncoding(); }
+    public function getCharSize()  { return $this->info->getCharSize(); }
+    public function getEnds() { return $this->info->getEnds(); }
+    public function getHeader() { return $this->info->getHeader(); }
 }
 
 class phpMorphy_GramInfo_Proxy extends phpMorphy_GramInfo_Decorator {
     protected $storage;
-
-    function __construct(phpMorphy_Storage $storage) {
+    
+    public function __construct(phpMorphy_Storage $storage) {
         $this->storage = $storage;
         unset($this->info);
     }
-
-    function __get($propName) {
+    
+    public function __get($propName) {
         if($propName == 'info') {
             $this->info = phpMorphy_GramInfo::create($this->storage, false);
             unset($this->storage);
@@ -252,8 +252,8 @@ class phpMorphy_GramInfo_Proxy_WithHeader extends phpMorphy_GramInfo_Proxy {
     protected
         $cache,
         $ends;
-
-    function __construct(phpMorphy_Storage $storage, $cacheFile) {
+    
+    public function __construct(phpMorphy_Storage $storage, $cacheFile) {
         parent::__construct($storage);
 
         $this->cache = $this->readCache($cacheFile);
@@ -267,41 +267,39 @@ class phpMorphy_GramInfo_Proxy_WithHeader extends phpMorphy_GramInfo_Proxy {
 
         return $result;
     }
-
-    function getLocale()  {
+    
+    public function getLocale()  {
         return $this->cache['lang'];
     }
-
-    function getEncoding()  {
+    
+    public function getEncoding()  {
         return $this->cache['encoding'];
     }
-
-    function getCharSize()  {
+    
+    public function getCharSize()  {
         return $this->cache['char_size'];
     }
-
-    function getEnds() {
+    
+    public function getEnds() {
         return $this->ends;
     }
-
-    function getHeader() {
+    
+    public function getHeader() {
         return $this->cache;
     }
 }
 
 class phpMorphy_GramInfo_RuntimeCaching extends phpMorphy_GramInfo_Decorator {
-    protected
-        $flexia = array(),
-        $ancodes = array();
+    protected array $flexia = [];
 
-    function readFlexiaData($info) {
+    public function readFlexiaData($info) {
         $offset = $info['offset'];
 
-        if(!isset($this->flexia_all[$offset])) {
-            $this->flexia_all[$offset] = $this->info->readFlexiaData($info);
+        if(!isset($this->flexia[$offset])) {
+            $this->flexia[$offset] = $this->info->readFlexiaData($info);
         }
 
-        return $this->flexia_all[$offset];
+        return $this->flexia[$offset];
     }
 }
 
@@ -313,7 +311,7 @@ class phpMorphy_GramInfo_AncodeCache extends phpMorphy_GramInfo_Decorator {
     protected
         $cache;
 
-    function __construct(phpMorphy_GramInfo_Interace $inner, $resource) {
+    public function __construct(phpMorphy_GramInfo_Interace $inner, $resource) {
         parent::__construct($inner);
 
         if(false === ($this->cache = unserialize($resource->read(0, $resource->getFileSize())))) {
@@ -321,7 +319,7 @@ class phpMorphy_GramInfo_AncodeCache extends phpMorphy_GramInfo_Decorator {
         }
     }
 
-    function readAncodes($info) {
+    public function readAncodes($info) {
         $offset = $info['offset'];
 
         if(isset($this->cache[$offset])) {

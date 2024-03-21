@@ -25,28 +25,28 @@ interface phpMorphy_Fsa_Interface {
      * Return root transition of fsa
      * @return array
      */
-    function getRootTrans();
-
+    public function getRootTrans();
+    
     /**
      * Returns root state object
      * @return
      */
-    function getRootState();
-
+    public function getRootState();
+    
     /**
      * Returns alphabet i.e. all chars used in automat
      * @return array
      */
-    function getAlphabet();
-
+    public function getAlphabet();
+    
     /**
      * Return annotation for given transition(if annotation flag is set for given trans)
      *
      * @param array $trans
      * @return string
      */
-    function getAnnot($trans);
-
+    public function getAnnot($trans);
+    
     /**
      * Find word in automat
      *
@@ -55,8 +55,8 @@ interface phpMorphy_Fsa_Interface {
      * @param bool $readAnnot read annot or simple check if word exists in automat
      * @return bool TRUE if word is found, FALSE otherwise
      */
-    function walk($trans, $word, $readAnnot = true);
-
+    public function walk($trans, $word, $readAnnot = true);
+    
     /**
      * Traverse automat and collect words
      * For each found words $callback function invoked with follow arguments:
@@ -68,23 +68,23 @@ interface phpMorphy_Fsa_Interface {
      * @param bool $readAnnot read annot
      * @param string $path string to be append to all words
      */
-    function collect($startNode, $callback, $readAnnot = true, $path = '');
-
+    public function collect($startNode, $callback, $readAnnot = true, $path = '');
+    
     /**
      * Read state at given index
      *
      * @param int $index
      * @return array
      */
-    function readState($index);
-
+    public function readState($index);
+    
     /**
      * Unpack transition from binary form to array
      *
      * @param mixed $rawTranses may be array for convert more than one transitions
      * @return array
      */
-    function unpackTranses($rawTranses);
+    public function unpackTranses($rawTranses);
 }
 
 abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
@@ -95,8 +95,8 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
         $header,
         $fsa_start,
         $root_trans,
-        $alphabet;
-
+        $alphabet;  
+    
     protected function __construct($resource, $header) {
         $this->resource = $resource;
         $this->header = $header;
@@ -136,14 +136,14 @@ abstract class phpMorphy_Fsa implements phpMorphy_Fsa_Interface {
             $header
         );
     }
-
-    function getRootTrans() { return $this->root_trans; }
-
-    function getRootState() {
+    
+    public function getRootTrans() { return $this->root_trans; }
+    
+    public function getRootState() {
         return $this->createState($this->getRootStateIndex());
     }
-
-    function getAlphabet() {
+    
+    public function getAlphabet() {
         if(!isset($this->alphabet)) {
             $this->alphabet = str_split($this->readAlphabet());
         }
@@ -216,12 +216,12 @@ class phpMorphy_Fsa_WordsCollector {
     protected
         $items = array(),
         $limit;
-
-    function __construct($collectLimit) {
+    
+    public function __construct($collectLimit) {
         $this->limit = $collectLimit;
     }
-
-    function collect($word, $annot) {
+    
+    public function collect($word, $annot) {
         if(count($this->items) < $this->limit) {
             $this->items[$word] = $annot;
             return true;
@@ -229,38 +229,38 @@ class phpMorphy_Fsa_WordsCollector {
             return false;
         }
     }
-
-    function getItems() { return $this->items; }
-    function clear() { $this->items = array(); }
-    function getCallback() { return array($this, 'collect'); }
+    
+    public function getItems() { return $this->items; }
+    public function clear() { $this->items = array(); }
+    public function getCallback() { return array($this, 'collect'); }
 };
 
 class phpMorphy_Fsa_Decorator implements phpMorphy_Fsa_Interface {
     protected $fsa;
-
-    function __construct(phpMorphy_Fsa_Interface $fsa) {
+    
+    public function __construct(phpMorphy_Fsa_Interface $fsa) {
         $this->fsa = $fsa;
     }
-
-    function getRootTrans() { return $this->fsa->getRootTrans(); }
-    function getRootState() { return $this->fsa->getRootState(); }
-    function getAlphabet() { return $this->fsa->getAlphabet(); }
-    function getAnnot($trans) { return $this->fsa->getAnnot($trans); }
-    function walk($start, $word, $readAnnot = true) { return $this->fsa->walk($start, $word, $readAnnot); }
-    function collect($start, $callback, $readAnnot = true, $path = '') { return $this->fsa->collect($start, $callback, $readAnnot, $path); }
-    function readState($index) { return $this->fsa->readState($index); }
-    function unpackTranses($transes) { return $this->fsa->unpackTranses($transes); }
+    
+    public function getRootTrans() { return $this->fsa->getRootTrans(); }
+    public function getRootState() { return $this->fsa->getRootState(); }
+    public function getAlphabet() { return $this->fsa->getAlphabet(); }
+    public function getAnnot($trans) { return $this->fsa->getAnnot($trans); }
+    public function walk($start, $word, $readAnnot = true) { return $this->fsa->walk($start, $word, $readAnnot); }
+    public function collect($start, $callback, $readAnnot = true, $path = '') { return $this->fsa->collect($start, $callback, $readAnnot, $path); }
+    public function readState($index) { return $this->fsa->readState($index); }
+    public function unpackTranses($transes) { return $this->fsa->unpackTranses($transes); }
 };
 
 class phpMorphy_Fsa_Proxy extends phpMorphy_Fsa_Decorator {
     protected $storage;
-
-    function __construct(phpMorphy_Storage $storage) {
+    
+    public function __construct(phpMorphy_Storage $storage) {
         $this->storage = $storage;
         unset($this->fsa);
     }
-
-    function __get($propName) {
+    
+    public function __get($propName) {
         if($propName == 'fsa') {
             $this->fsa = phpMorphy_Fsa::create($this->storage, false);
 

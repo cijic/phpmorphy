@@ -15,7 +15,7 @@ class phpMorphy_Collection implements phpMorphy_Collection_Interface {
 		$this->clear();
 	}
 	
-	function getIterator() {
+	function getIterator(): ArrayIterator {
 		return new ArrayIterator($this->data);
 	}
 	
@@ -37,11 +37,11 @@ class phpMorphy_Collection implements phpMorphy_Collection_Interface {
 		$this->data = array();
 	}
 	
-	function offsetExists($offset) {
+	function offsetExists($offset): bool {
 		return array_key_exists($offset, $this->data);
 	}
 	
-	function offsetGet($offset) {
+	function offsetGet($offset): mixed {
 		if(!$this->offsetExists($offset)) {
 			throw new phpMorphy_Exception("Invalid offset($offset) given");
 		}
@@ -49,15 +49,15 @@ class phpMorphy_Collection implements phpMorphy_Collection_Interface {
 		return $this->data[$offset];
 	}
 	
-	function offsetSet($offset, $value) {
+	function offsetSet($offset, $value): void {
 		$this->data[$offset] = $value;
 	}
 	
-	function offsetUnset($offset) {
+	function offsetUnset($offset): void {
 		unset($this->data[$offset]);
 	}
 	
-	function count() {
+	function count(): int {
 		return count($this->data);
 	}
 }
@@ -69,7 +69,7 @@ class phpMorphy_Collection_Decorator implements phpMorphy_Collection_Interface {
 		$this->inner = $inner;
 	}
 	
-	function getIterator() {
+	function getIterator(): \Traversable {
 		return $this->inner->getIterator();
 	}
 	
@@ -85,23 +85,23 @@ class phpMorphy_Collection_Decorator implements phpMorphy_Collection_Interface {
 		$this->inner->clear();
 	}
 	
-	function offsetExists($offset) {
+	function offsetExists($offset): bool {
 		return $this->inner->offsetExists($offset);
 	}
 	
-	function offsetGet($offset) {
+	function offsetGet($offset): mixed {
 		return $this->inner->offsetGet($offset);
 	}
 	
-	function offsetSet($offset, $value) {
+	function offsetSet($offset, $value): void {
 		$this->inner->offsetSet($offset, $value);
 	}
 	
-	function offsetUnset($offset) {
+	function offsetUnset($offset): void {
 		$this->inner->offsetUnset($offset);
 	}
 	
-	function count() {
+	function count(): int {
 		return $this->inner->count();
 	}
 }
@@ -125,11 +125,11 @@ class phpMorphy_Collection_Immutable extends phpMorphy_Collection_Decorator {
 }
 
 abstract class phpMorphy_Collection_Transform extends phpMorphy_Collection_Decorator {
-	function offsetGet($offset) {
+	function offsetGet($offset): mixed {
 		return $this->transformItem(parent::offsetGet($offset), $offset);
 	}
 	
-	function getIterator() {
+	function getIterator(): \Traversable {
 		return new phpMorphy_Iterator_TransformCallback(
 			parent::getIterator(),
 			array($this, 'transformItem')
@@ -157,7 +157,7 @@ class phpMorphy_Collection_Cache extends phpMorphy_Collection_Decorator {
 		}
 	}
 	
-	function count() {
+	function count(): int {
 		if($this->flags & self::UNSET_BEHAVIOUR) {
 			return parent::count() + count($this->items);
 		} else {
@@ -169,7 +169,7 @@ class phpMorphy_Collection_Cache extends phpMorphy_Collection_Decorator {
 		$this->flags = $flags;
 	}
 		
-	function offsetGet($offset) {
+	function offsetGet($offset): mixed {
 		if(!isset($this->items[$offset])) {
 			$this->items[$offset] = parent::offsetGet($offset);
 			

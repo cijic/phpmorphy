@@ -25,7 +25,7 @@ define('PHPMORPHY_SOURCE_DBA', 'dba');
 define('PHPMORPHY_SOURCE_SQL', 'sql');
 
 interface phpMorphy_Source_Interface {
-    function getValue($key);
+    public function getValue($key);
 }
 
 class phpMorphy_Source_Fsa implements phpMorphy_Source_Interface {
@@ -33,16 +33,16 @@ class phpMorphy_Source_Fsa implements phpMorphy_Source_Interface {
         $fsa,
         $root;
     
-    function __construct(phpMorphy_Fsa_Interface $fsa) {
+    public function __construct(phpMorphy_Fsa_Interface $fsa) {
         $this->fsa = $fsa;
         $this->root = $fsa->getRootTrans();
     }
     
-    function getFsa() {
+    public function getFsa() {
     	return $this->fsa;
     }
     
-    function getValue($key) {
+    public function getValue($key) {
         if(false === ($result = $this->fsa->walk($this->root, $key, true)) || !$result['annot']) {
             return false;
         }
@@ -56,11 +56,11 @@ class phpMorphy_Source_Dba implements phpMorphy_Source_Interface {
     
     protected $handle;
     
-    function __construct($fileName, $options = null) {
+    public function __construct($fileName, $options = null) {
         $this->handle = $this->openFile($fileName, $this->repairOptions($options));
     }
     
-    function close() {
+    public function close() {
         if(isset($this->handle)) {
             dba_close($this->handle);
             $this->handle = null;
@@ -97,7 +97,7 @@ class phpMorphy_Source_Dba implements phpMorphy_Source_Interface {
         return (array)$options + $defaults;
     }
     
-    function getValue($key) {
+    public function getValue($key) {
         return dba_fetch($key, $this->handle);
     }
 }
