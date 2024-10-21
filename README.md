@@ -54,10 +54,6 @@ Section ```aliases```
 ``` php
 'Morphy'    => cijic\phpMorphy\Facade\Morphy::class,
 ```
-
-## Change log
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
