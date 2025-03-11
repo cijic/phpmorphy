@@ -466,7 +466,7 @@ class phpMorphy {
     * @param mixed $type
     * @return array
     */
-    public function castFormByPattern($word, $patternWord, phpMorphy_GrammemsProvider_Interface $grammemsProvider = null, $returnOnlyWord = false, $callback = null, $type = self::NORMAL) {
+    public function castFormByPattern($word, $patternWord, ?phpMorphy_GrammemsProvider_Interface $grammemsProvider = null, $returnOnlyWord = false, $callback = null, $type = self::NORMAL) {
         if(false === ($word_annot = $this->getAnnotForWord($word, $type))) {
             return false;
         }
