@@ -512,14 +512,15 @@ class phpMorphy {
         return $this->__word_descriptor_serializer->serialize($collection, $asText);
     }
 
-    protected function invoke($method, $word, $type) {
+    protected function invoke($method, $word, $type)
+    {
         $this->last_prediction_type = self::PREDICT_BY_NONE;
 
-        if($type === self::ONLY_PREDICT) {
-            if(is_array($word)) {
-                $result = array();
+        if ($type === self::ONLY_PREDICT) {
+            if (is_array($word)) {
+                $result = [];
 
-                foreach($word as $w) {
+                foreach ($word as $w) {
                     $result[$w] = $this->predictWord($method, $w);
                 }
 
@@ -529,33 +530,29 @@ class phpMorphy {
             }
         }
 
-        if(is_array($word)) {
-            $result = $this->__bulk_morphier->$method($word);
+        if (is_array($word)) {
+            $result   = $this->__bulk_morphier->$method($word);
+            $notFound = $this->__bulk_morphier->getNotFoundWords();
 
-            if($type !== self::IGNORE_PREDICT) {
-                $not_found = $this->__bulk_morphier->getNotFoundWords();
-
-                for($i = 0, $c = count($not_found); $i < $c; $i++) {
-                    $word = $not_found[$i];
-
+            if ($type !== self::IGNORE_PREDICT) {
+                for ($i = 0, $c = count($notFound); $i < $c; $i++) {
+                    $word          = $notFound[$i];
                     $result[$word] = $this->predictWord($method, $word);
                 }
             } else {
-                for($i = 0, $c = count($not_found); $i < $c; $i++) {
-                    $result[$not_found[$i]] = false;
+                for ($i = 0, $c = count($notFound); $i < $c; $i++) {
+                    $result[$notFound[$i]] = false;
                 }
             }
-
-            return $result;
         } else {
-            if(false === ($result = $this->__common_morphier->$method($word))) {
-                if($type !== self::IGNORE_PREDICT) {
+            if (false === ($result = $this->__common_morphier->$method($word))) {
+                if ($type !== self::IGNORE_PREDICT) {
                     return $this->predictWord($method, $word);
                 }
             }
-
-            return $result;
         }
+
+        return $result;
     }
 
     protected function predictWord($method, $word) {
